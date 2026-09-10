@@ -1,0 +1,155 @@
+<title>Všechny produkty – Collectiversium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/style.css" />
+
+<header id="site-header" class="site"></header>
+
+<section class="section container">
+  <div class="section-head">
+    <div>
+      <span class="kicker">Katalog</span>
+      <h2 id="page-title">Všechny produkty</h2>
+    </div>
+  </div>
+  <div class="shop-layout">
+    <aside class="filters">
+      <details id="filter-details">
+        <summary>Filtry</summary>
+        <div class="filter-body">
+          <div class="filter-group">
+            <h4>Kategorie</h4>
+            <div id="category-filters"></div>
+          </div>
+          <div class="filter-group">
+            <h4>Značka / franšíza</h4>
+            <div id="franchise-filters"></div>
+          </div>
+          <div class="filter-group">
+            <h4>Typ produktu</h4>
+            <div id="type-filters"></div>
+          </div>
+          <div class="filter-group">
+            <h4>Dostupnost</h4>
+            <label class="filter-opt"><input type="checkbox" id="in-stock-only" /> Jen skladem</label>
+          </div>
+        </div>
+      </details>
+    </aside>
+    <div>
+      <div class="results-bar">
+        <span id="results-count"></span>
+        <select id="sort-select">
+          <option value="default">Doporučené</option>
+          <option value="price-asc">Cena: nejnižší</option>
+          <option value="price-desc">Cena: nejvyšší</option>
+          <option value="name-asc">Název A–Z</option>
+        </select>
+      </div>
+      <div class="grid" id="product-grid"></div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" class="site"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/site.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const state = {
+    category: params.get("category") || "",
+    q: (params.get("q") || "").toLowerCase(),
+  };
+  const initialFranchise = params.get("franchise") || "";
+
+  function productsInCategory(catId) {
+    return catId ? PRODUCTS.filter((p) => p.category === catId) : PRODUCTS;
+  }
+
+  function renderCategoryFilters() {
+    const html =
+      `<label class="filter-opt"><input type="radio" name="cat" class="cat-radio" value="" ${state.category === "" ? "checked" : ""}/> Vše</label>` +
+      CATEGORIES.map(
+        (c) => `<label class="filter-opt"><input type="radio" name="cat" class="cat-radio" value="${c.id}" ${state.category === c.id ? "checked" : ""}/> ${c.label}</label>`
+      ).join("");
+    document.getElementById("category-filters").innerHTML = html;
+    document.querySelectorAll(".cat-radio").forEach((el) =>
+      el.addEventListener("change", () => {
+        state.category = el.value;
+        renderFranchiseAndTypeFilters(initialFranchise && state.category === (params.get("category") || "") ? initialFranchise : null);
+        render();
+      })
+    );
+  }
+
+  function renderFranchiseAndTypeFilters(preselectFranchise) {
+    const pool = productsInCategory(state.category);
+    const franchises = [...new Set(pool.map((p) => p.franchise))].sort();
+    const types = [...new Set(pool.map((p) => p.type))].sort();
+
+    document.getElementById("franchise-filters").innerHTML = franchises
+      .map(
+        (f) => `<label class="filter-opt"><input type="checkbox" class="franchise-cb" value="${f}" ${preselectFranchise === f ? "checked" : ""}/> ${f}</label>`
+      )
+      .join("");
+    document.getElementById("type-filters").innerHTML = types
+      .map((t) => `<label class="filter-opt"><input type="checkbox" class="type-cb" value="${t}"/> ${t}</label>`)
+      .join("");
+
+    document.querySelectorAll(".franchise-cb, .type-cb").forEach((el) => el.addEventListener("change", render));
+  }
+
+  function activeValues(cls) {
+    return [...document.querySelectorAll("." + cls + ":checked")].map((el) => el.value);
+  }
+
+  function render() {
+    const selFranchises = activeValues("franchise-cb");
+    const selTypes = activeValues("type-cb");
+    const inStockOnly = document.getElementById("in-stock-only").checked;
+    const sort = document.getElementById("sort-select").value;
+
+    let list = PRODUCTS.filter((p) => {
+      if (state.category && p.category !== state.category) return false;
+      if (selFranchises.length && !selFranchises.includes(p.franchise)) return false;
+      if (selTypes.length && !selTypes.includes(p.type)) return false;
+      if (inStockOnly && p.stock === 0) return false;
+      if (state.q && !p.name.toLowerCase().includes(state.q) && !p.franchise.toLowerCase().includes(state.q)) return false;
+      return true;
+    });
+
+    if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
+    if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
+    if (sort === "name-asc") list.sort((a, b) => a.name.localeCompare(b.name));
+
+    document.getElementById("product-grid").innerHTML = list.length
+      ? list.map(cardHTML).join("")
+      : `<p style="color:var(--text-dim)">Žádné produkty neodpovídají zvolenému filtru.</p>`;
+
+    document.getElementById("results-count").textContent = `${list.length} produktů`;
+
+    let title = "Všechny produkty";
+    if (selFranchises.length === 1) title = selFranchises[0];
+    else if (state.category) title = categoryLabel(state.category);
+    document.getElementById("page-title").textContent = title;
+  }
+
+  document.getElementById("in-stock-only").addEventListener("change", render);
+  document.getElementById("sort-select").addEventListener("change", render);
+
+  document.addEventListener("site:ready", () => {
+    const searchInput = document.getElementById("search-input");
+    if (searchInput) searchInput.value = params.get("q") || "";
+  });
+
+  const filterDetails = document.getElementById("filter-details");
+  const wideScreen = window.matchMedia("(min-width: 901px)");
+  const syncFilterPanel = () => (filterDetails.open = wideScreen.matches);
+  syncFilterPanel();
+  wideScreen.addEventListener("change", syncFilterPanel);
+
+  renderCategoryFilters();
+  renderFranchiseAndTypeFilters(initialFranchise);
+  render();
+</script>

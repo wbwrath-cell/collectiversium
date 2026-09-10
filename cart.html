@@ -1,0 +1,95 @@
+<title>Košík – Collectiversium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/style.css" />
+
+<header id="site-header" class="site"></header>
+
+<section class="section container">
+  <div class="section-head">
+    <div>
+      <span class="kicker">Objednávka</span>
+      <h2>Košík</h2>
+    </div>
+  </div>
+  <div id="cart-root"></div>
+</section>
+
+<footer id="site-footer" class="site"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/site.js"></script>
+<script>
+  const FREE_SHIP_THRESHOLD = 2000;
+  const SHIP_COST = 89;
+
+  function renderCart() {
+    const cart = readCart();
+    const ids = Object.keys(cart);
+    const root = document.getElementById("cart-root");
+
+    if (!ids.length) {
+      root.innerHTML = `
+        <div class="empty-state">
+          <div class="big">Prázdno</div>
+          <p>V košíku zatím nic není</p>
+          <a class="btn" href="products.html">Prohlédnout nabídku</a>
+        </div>`;
+      return;
+    }
+
+    const items = ids.map((id) => ({ p: getProduct(id), qty: cart[id] })).filter((it) => it.p);
+    const subtotal = items.reduce((sum, it) => sum + it.p.price * it.qty, 0);
+    const shipping = subtotal >= FREE_SHIP_THRESHOLD ? 0 : SHIP_COST;
+    const total = subtotal + shipping;
+
+    root.innerHTML = `
+      <div class="cart-layout">
+        <div class="cart-table-wrap">
+        <table class="cart-table">
+          <thead><tr><th>Produkt</th><th>Cena</th><th>Množství</th><th>Mezisoučet</th><th></th></tr></thead>
+          <tbody>
+            ${items
+              .map(
+                (it) => `
+              <tr>
+                <td>
+                  <div class="cart-item-info">
+                    <div class="cart-thumb" style="${franchiseStyle(it.p.franchise)}"></div>
+                    <div>
+                      <div class="name"><a href="product.html?id=${it.p.id}">${it.p.name}</a></div>
+                      <div class="brand">${it.p.franchise} · ${it.p.type}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="num">${formatPrice(it.p.price)}</td>
+                <td>
+                  <div class="qty-box">
+                    <button onclick="setQty('${it.p.id}', ${it.qty - 1}); renderCart();">−</button>
+                    <input value="${it.qty}" onchange="setQty('${it.p.id}', parseInt(this.value)||1); renderCart();" />
+                    <button onclick="setQty('${it.p.id}', ${it.qty + 1}); renderCart();">+</button>
+                  </div>
+                </td>
+                <td class="num">${formatPrice(it.p.price * it.qty)}</td>
+                <td><span class="remove-link" onclick="removeFromCart('${it.p.id}'); renderCart();">Odebrat</span></td>
+              </tr>`
+              )
+              .join("")}
+          </tbody>
+        </table>
+        </div>
+
+        <div class="summary-box">
+          <h3>Souhrn objednávky</h3>
+          <div class="summary-row"><span>Mezisoučet</span><span>${formatPrice(subtotal)}</span></div>
+          <div class="summary-row"><span>Doprava</span><span>${shipping === 0 ? "Zdarma" : formatPrice(shipping)}</span></div>
+          ${subtotal < FREE_SHIP_THRESHOLD ? `<div class="badge-note">Do dopravy zdarma vám chybí ${formatPrice(FREE_SHIP_THRESHOLD - subtotal)}.</div>` : ""}
+          <div class="summary-row total"><span>Celkem</span><span>${formatPrice(total)}</span></div>
+          <button class="btn" style="width:100%;margin-top:16px;" disabled title="Pokladna zatím není zapojená">Pokračovat k pokladně</button>
+          <p style="font-size:12px;color:var(--text-dim);margin-top:10px;">Platební brána zatím není napojená — toto je funkční prototyp bez reálné pokladny.</p>
+        </div>
+      </div>`;
+  }
+
+  renderCart();
+</script>

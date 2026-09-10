@@ -1,0 +1,110 @@
+<title>Collectiversium – Sběratelský marketplace</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/style.css" />
+
+<header id="site-header" class="site"></header>
+
+<section class="hero">
+  <div class="speed-band"></div>
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <span class="hero-kicker">Est. 2026 — Praha</span>
+      <h1>
+        Karty,<br />
+        <span class="outline">Merch</span><br />
+        &amp; <span class="redline">Figurky</span>
+      </h1>
+      <p class="lede">
+        TCG boostery, sběratelské edice z filmů a seriálů a limitované figurky.
+        Zapečetěné, originální, od ověřených dodavatelů.
+      </p>
+      <div class="hero-actions">
+        <a href="products.html" class="btn">Prozkoumat nabídku</a>
+        <a href="products.html?category=karty" class="btn secondary">Karty</a>
+      </div>
+    </div>
+
+    <div class="hero-plate">
+      <span class="plate-tag">Tento týden</span>
+      <div class="plate-grid" id="plate-grid"></div>
+      <div class="plate-foot">
+        <span>Novinky skladem</span>
+        <span id="plate-count">—</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><span class="ic">01</span><div><h4>Ověření dodavatelé</h4><p>Nakupujeme pouze od licencovaných distributorů.</p></div></div>
+  <div class="trust-item"><span class="ic">02</span><div><h4>Originál &amp; zapečetěné</h4><p>Vše v původním neotevřeném balení.</p></div></div>
+  <div class="trust-item"><span class="ic">03</span><div><h4>Odeslání do 24 h</h4><p>Skladové zboží expedujeme následující pracovní den.</p></div></div>
+  <div class="trust-item"><span class="ic">04</span><div><h4>14 dní na vrácení</h4><p>Nerozbalené zboží bez udání důvodu.</p></div></div>
+</div>
+
+<section class="section container">
+  <div class="section-head">
+    <div>
+      <span class="kicker">Sortiment</span>
+      <h2>Tři světy,<br />jedna sbírka</h2>
+    </div>
+    <a href="products.html" class="more">Celý katalog →</a>
+  </div>
+  <div class="tiles" id="tiles"></div>
+</section>
+
+<section class="section container">
+  <div class="section-head">
+    <div>
+      <span class="kicker">Výběr redakce</span>
+      <h2>Doporučené kusy</h2>
+    </div>
+    <a href="products.html" class="more">Zobrazit vše →</a>
+  </div>
+  <div class="grid" id="featured-grid"></div>
+</section>
+
+<footer id="site-footer" class="site"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/site.js"></script>
+<script>
+  const TILE_DESC = {
+    "karty": "Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana i sběratelské série jako Kayou.",
+    "filmy-serialy": "Marvel, DC, Star Wars, Harry Potter, Disney a anime edice a merch.",
+    "figurky": "Funko Pop!, DeAgostini, limitované figurky, busty a repliky.",
+  };
+
+  document.getElementById("tiles").innerHTML = CATEGORIES.map((cat, i) => {
+    const tags = cat.groups.flatMap((g) => g.items).slice(0, 4);
+    const count = PRODUCTS.filter((p) => p.category === cat.id).length;
+    return `
+      <a href="products.html?category=${cat.id}" class="tile" data-num="0${i + 1}">
+        <span class="kicker">${count} položek</span>
+        <h3>${cat.label}</h3>
+        <p>${TILE_DESC[cat.id] || ""}</p>
+        <div class="tile-tags">${tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>
+        <span class="tile-go">Otevřít →</span>
+      </a>`;
+  }).join("");
+
+  const featured = [
+    "pkm-151-box", "marvel-steelbook", "funko-spiderman", "op-romance-op01",
+    "nrt-tier1-box", "bust-batman", "lorcana-rotf-pack", "hp-pin-set",
+  ];
+  document.getElementById("featured-grid").innerHTML = featured
+    .map((id) => getProduct(id))
+    .filter(Boolean)
+    .map(cardHTML)
+    .join("");
+
+  const plate = ["pkm-151-box", "op-romance-op01", "funko-spiderman"]
+    .map((id) => getProduct(id))
+    .filter(Boolean);
+  document.getElementById("plate-grid").innerHTML = plate
+    .map((p) => `<div class="plate-card" style="${franchiseStyle(p.franchise)}"><span>${p.franchise}</span></div>`)
+    .join("");
+  document.getElementById("plate-count").textContent =
+    PRODUCTS.filter((p) => p.stock > 0).length + " skladem";
+</script>

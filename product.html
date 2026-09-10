@@ -1,0 +1,89 @@
+<title>Detail produktu – Collectiversium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/style.css" />
+
+<header id="site-header" class="site"></header>
+
+<div class="container" id="crumbs-root"></div>
+<div class="container" id="pdp-root"></div>
+
+<section class="section container">
+  <div class="section-head">
+    <div>
+      <span class="kicker">Ze stejné řady</span>
+      <h2>Mohlo by se vám líbit</h2>
+    </div>
+  </div>
+  <div class="grid" id="related-grid"></div>
+</section>
+
+<footer id="site-footer" class="site"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/site.js"></script>
+<script>
+  const id = new URLSearchParams(window.location.search).get("id");
+  const p = getProduct(id);
+  const root = document.getElementById("pdp-root");
+
+  if (!p) {
+    root.innerHTML = `<div class="empty-state"><div class="big">◌</div><p>Produkt nenalezen.</p><a class="btn" href="products.html">Zpět do katalogu</a></div>`;
+  } else {
+    document.title = p.name + " – Collectiversium";
+    document.getElementById("crumbs-root").innerHTML = `
+      <div class="crumbs">
+        <a href="index.html">Domů</a> ›
+        <a href="products.html?category=${p.category}">${categoryLabel(p.category)}</a> ›
+        <a href="products.html?category=${p.category}&franchise=${encodeURIComponent(p.franchise)}">${p.franchise}</a>
+      </div>`;
+
+    const soldOut = p.stock === 0;
+    root.innerHTML = `
+      <div class="pdp">
+        <div class="pdp-media" style="${franchiseStyle(p.franchise)}"><span>${p.name}</span></div>
+        <div class="pdp-info">
+          <span class="kicker">${p.franchise} / ${p.type}</span>
+          <h1>${p.name}</h1>
+          <div class="pdp-price">${formatPrice(p.price)}${p.compareAt ? `<small>${formatPrice(p.compareAt)}</small>` : ""}</div>
+          <p class="pdp-desc">${p.desc}</p>
+          <div class="pdp-row">
+            <div class="qty-box">
+              <button id="qty-dec" aria-label="Ubrat">−</button>
+              <input id="qty-input" value="1" />
+              <button id="qty-inc" aria-label="Přidat">+</button>
+            </div>
+            <button class="btn" id="add-btn" ${soldOut ? "disabled" : ""}>${soldOut ? "Vyprodáno" : "Přidat do košíku"}</button>
+          </div>
+          <div class="stock-line ${soldOut ? "out" : p.stock <= 6 ? "low" : ""}">${
+            soldOut ? "Momentálně nedostupné" : p.stock <= 6 ? `Poslední ${p.stock} ks skladem` : `Skladem — ${p.stock} ks`
+          }</div>
+          <ul class="pdp-facts">
+            ${Object.entries(p.facts).map(([k, v]) => `<li><b>${k}</b><span>${v}</span></li>`).join("")}
+          </ul>
+          <div class="badge-note">Originál zboží od ověřených dodavatelů — prodáváme výhradně v zapečetěném / neotevřeném stavu.</div>
+        </div>
+      </div>`;
+
+    document.getElementById("qty-inc").onclick = () => {
+      const el = document.getElementById("qty-input");
+      el.value = Math.max(1, parseInt(el.value || "1") + 1);
+    };
+    document.getElementById("qty-dec").onclick = () => {
+      const el = document.getElementById("qty-input");
+      el.value = Math.max(1, parseInt(el.value || "1") - 1);
+    };
+    document.getElementById("add-btn").onclick = () => {
+      const qty = Math.max(1, parseInt(document.getElementById("qty-input").value || "1"));
+      addToCart(p.id, qty);
+      const btn = document.getElementById("add-btn");
+      const original = btn.textContent;
+      btn.textContent = "Přidáno ✓";
+      setTimeout(() => (btn.textContent = original), 1200);
+    };
+
+    const related = PRODUCTS.filter((rp) => rp.franchise === p.franchise && rp.id !== p.id);
+    const relatedPool = related.length >= 4 ? related : PRODUCTS.filter((rp) => rp.category === p.category && rp.id !== p.id);
+    document.getElementById("related-grid").innerHTML = relatedPool.slice(0, 4).map(cardHTML).join("");
+  }
+</script>
