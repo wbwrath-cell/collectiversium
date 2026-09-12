@@ -83,16 +83,86 @@ function cardHTML(p) {
         <div class="card-kicker">${p.franchise} / ${p.type}</div>
         <div class="card-title">${p.name}</div>
         <div class="card-bottom">
-          <div class="price">${formatPrice(p.price)}${p.compareAt ? `<small>${formatPrice(p.compareAt)}</small>` : ""}</div>
+          <div class="price">${formatPrice(p.price)}</div>
           <button class="card-add" ${soldOut ? "disabled" : ""} onclick="event.preventDefault();addToCart('${p.id}');" aria-label="Přidat do košíku">+</button>
         </div>
       </div>
     </a>`;
 }
 
+const COOKIE_CONSENT_KEY = "cardshop_cookie_consent_v1";
+
+function getCookieConsent() {
+  try { return JSON.parse(localStorage.getItem(COOKIE_CONSENT_KEY)); } catch { return null; }
+}
+
+function setCookieConsent(analytics, marketing) {
+  localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify({ analytics, marketing, ts: Date.now() }));
+  document.getElementById("cookie-banner")?.setAttribute("hidden", "");
+}
+
+function initCookieBanner() {
+  const banner = document.createElement("div");
+  banner.id = "cookie-banner";
+  banner.className = "cookie-banner";
+  banner.innerHTML = `
+    <div class="cookie-main">
+      <p>Nezbytné cookies potřebujeme pro chod webu (např. aby fungoval košík) — ty běží vždy. Analytické a marketingové cookies použijeme jen tehdy, pokud nám k tomu dáte souhlas. Podrobnosti najdete v <a href="ochrana-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</p>
+      <div class="cookie-actions">
+        <button class="btn cookie-btn" id="cookie-reject">Odmítnout vše</button>
+        <button class="btn cookie-btn" id="cookie-accept">Přijmout vše</button>
+        <button class="btn cookie-btn cookie-btn-alt" id="cookie-customize">Nastavit podrobně</button>
+      </div>
+    </div>
+    <div class="cookie-detail" id="cookie-detail" hidden>
+      <label class="cookie-cat">
+        <input type="checkbox" checked disabled />
+        <span><strong>Nezbytné</strong> — bez nich web nefunguje (košík, uložené nastavení souhlasu). Nelze vypnout.</span>
+      </label>
+      <label class="cookie-cat">
+        <input type="checkbox" id="cookie-cat-analytics" />
+        <span><strong>Analytické</strong> — anonymní statistiky návštěvnosti, které nám pomáhají web zlepšovat.</span>
+      </label>
+      <label class="cookie-cat">
+        <input type="checkbox" id="cookie-cat-marketing" />
+        <span><strong>Marketingové</strong> — měření účinnosti reklamy a personalizace nabídek.</span>
+      </label>
+      <button class="btn cookie-btn" id="cookie-save">Uložit volbu</button>
+    </div>`;
+  document.body.appendChild(banner);
+
+  const detail = banner.querySelector("#cookie-detail");
+  banner.querySelector("#cookie-accept").addEventListener("click", () => setCookieConsent(true, true));
+  banner.querySelector("#cookie-reject").addEventListener("click", () => setCookieConsent(false, false));
+  banner.querySelector("#cookie-customize").addEventListener("click", () => { detail.hidden = !detail.hidden; });
+  banner.querySelector("#cookie-save").addEventListener("click", () =>
+    setCookieConsent(
+      banner.querySelector("#cookie-cat-analytics").checked,
+      banner.querySelector("#cookie-cat-marketing").checked
+    )
+  );
+
+  if (getCookieConsent()) banner.setAttribute("hidden", "");
+
+  const settingsLink = document.getElementById("cookie-settings-link");
+  if (settingsLink) {
+    settingsLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const saved = getCookieConsent();
+      if (saved) {
+        banner.querySelector("#cookie-cat-analytics").checked = !!saved.analytics;
+        banner.querySelector("#cookie-cat-marketing").checked = !!saved.marketing;
+      }
+      detail.hidden = false;
+      banner.removeAttribute("hidden");
+    });
+  }
+}
+
 async function initSite() {
   await Promise.all([loadPartial("site-header", "partials/header.html"), loadPartial("site-footer", "partials/footer.html")]);
   buildNav();
+  initCookieBanner();
   if (typeof updateCartBadge === "function") updateCartBadge();
 
   const searchInput = document.getElementById("search-input");

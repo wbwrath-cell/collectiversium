@@ -1,0 +1,123 @@
+<title>Odstoupení od smlouvy – Collectiversium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/style.css" />
+
+<header id="site-header" class="site"></header>
+
+<section class="container legal">
+  <nav class="crumbs"><a href="index.html">Domů</a> / Odstoupení od smlouvy</nav>
+  <h1>Odstoupení od smlouvy</h1>
+  <p class="updated">Právo spotřebitele na odstoupení do 14 dnů</p>
+
+  <p>Máte právo odstoupit od kupní smlouvy do <strong>14 dnů</strong> od převzetí zboží, bez udání důvodu. Stačí vyplnit formulář níže. Podrobnosti najdete v čl. 5 <a class="inline-link" href="obchodni-podminky.html">obchodních podmínek</a>.</p>
+
+  <div class="callout warn">
+    <p style="margin-bottom:0">U <strong>zapečetěných sběratelských produktů</strong> (boostery, display boxy) platí, že odstoupit můžete i po otevření — podle § 1833 občanského zákoníku však odpovídáte za snížení hodnoty zboží, takže vrácená částka bude odpovídajícím způsobem nižší. Nerozbalené zboží vracíme v plné výši.</p>
+  </div>
+
+  <div class="form-box" id="wd-step1">
+    <h2 style="border:none;padding-top:0;margin-bottom:6px">Formulář pro odstoupení od smlouvy</h2>
+    <p style="font-size:13px">Adresát: Vít Čechlovský, Bystřická 1645, 432 01 Kadaň, hello@collectiversium.cz</p>
+
+    <div class="field"><label for="wd-name">Jméno a příjmení *</label><input class="wd-input" id="wd-name" type="text" required /></div>
+    <div class="field"><label for="wd-address">Adresa *</label><input class="wd-input" id="wd-address" type="text" required /></div>
+    <div class="field"><label for="wd-email">E-mail *</label><input class="wd-input" id="wd-email" type="email" required /></div>
+    <div class="field"><label for="wd-order">Číslo objednávky *</label><input class="wd-input" id="wd-order" type="text" required /></div>
+    <div class="field"><label for="wd-goods">Označení zboží *</label><input class="wd-input" id="wd-goods" type="text" required /></div>
+    <div class="field"><label for="wd-ordered">Datum objednání</label><input class="wd-input" id="wd-ordered" type="date" /></div>
+    <div class="field"><label for="wd-received">Datum převzetí zboží</label><input class="wd-input" id="wd-received" type="date" /></div>
+    <div class="field"><label for="wd-account">Číslo účtu pro vrácení platby *</label><input class="wd-input" id="wd-account" type="text" required /></div>
+
+    <p class="wd-error" id="wd-error" hidden>Vyplňte prosím všechna povinná pole označená *.</p>
+    <button class="btn" id="wd-continue">Pokračovat k potvrzení</button>
+  </div>
+
+  <div class="form-box" id="wd-step2" hidden>
+    <h2 style="border:none;padding-top:0;margin-bottom:6px">Potvrzení odstoupení</h2>
+    <p style="font-size:13px">Zkontrolujte prosím údaje. Potvrzením závazně odstupujete od kupní smlouvy.</p>
+    <div id="wd-summary" class="wd-summary"></div>
+    <div class="wd-actions">
+      <button class="btn secondary" id="wd-back">Zpět k úpravám</button>
+      <button class="btn" id="wd-submit">Odstoupit od smlouvy</button>
+    </div>
+  </div>
+
+  <div class="form-box" id="wd-step3" hidden>
+    <h2 style="border:none;padding-top:0;margin-bottom:6px">Odstoupení odesláno</h2>
+    <p>Ve vašem e-mailovém klientovi se otevřela předvyplněná zpráva — <strong>odešlete ji prosím</strong>, tím je odstoupení uplatněno. Potvrzení o přijetí vám zašleme na uvedený e-mail.</p>
+    <p style="font-size:13px">Pokud se e-mailový klient neotevřel, zkopírujte text níže a pošlete jej ručně na <a class="inline-link" href="mailto:hello@collectiversium.cz">hello@collectiversium.cz</a>.</p>
+    <pre class="wd-fallback" id="wd-fallback"></pre>
+  </div>
+
+  <p>Odstoupení můžete oznámit i jakýmkoli jiným jednoznačným prohlášením — e-mailem nebo dopisem na adresu sídla. Formulář je pouze pomůcka, není povinný.</p>
+</section>
+
+<footer id="site-footer" class="site"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/site.js"></script>
+<script>
+  const WD_FIELDS = [
+    ["wd-name", "Jméno a příjmení", true],
+    ["wd-address", "Adresa", true],
+    ["wd-email", "E-mail", true],
+    ["wd-order", "Číslo objednávky", true],
+    ["wd-goods", "Označení zboží", true],
+    ["wd-ordered", "Datum objednání", false],
+    ["wd-received", "Datum převzetí zboží", false],
+    ["wd-account", "Číslo účtu pro vrácení platby", true],
+  ];
+
+  const step1 = document.getElementById("wd-step1");
+  const step2 = document.getElementById("wd-step2");
+  const step3 = document.getElementById("wd-step3");
+
+  function collect() {
+    return WD_FIELDS.map(([id, label, required]) => ({
+      label,
+      required,
+      value: document.getElementById(id).value.trim(),
+    }));
+  }
+
+  document.getElementById("wd-continue").addEventListener("click", () => {
+    const data = collect();
+    const missing = data.some((f) => f.required && !f.value);
+    document.getElementById("wd-error").hidden = !missing;
+    if (missing) return;
+
+    document.getElementById("wd-summary").innerHTML = data
+      .filter((f) => f.value)
+      .map((f) => `<div class="wd-row"><b>${f.label}</b><span>${f.value}</span></div>`)
+      .join("");
+    step1.hidden = true;
+    step2.hidden = false;
+    step2.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  document.getElementById("wd-back").addEventListener("click", () => {
+    step2.hidden = true;
+    step1.hidden = false;
+    step1.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  document.getElementById("wd-submit").addEventListener("click", () => {
+    const data = collect().filter((f) => f.value);
+    const body =
+      "Oznamuji, že tímto odstupuji od kupní smlouvy o nákupu tohoto zboží:\n\n" +
+      data.map((f) => `${f.label}: ${f.value}`).join("\n") +
+      `\n\nDatum odeslání: ${new Date().toLocaleDateString("cs-CZ")}`;
+
+    document.getElementById("wd-fallback").textContent = body;
+    step2.hidden = true;
+    step3.hidden = false;
+    step3.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    window.location.href =
+      "mailto:hello@collectiversium.cz?subject=" +
+      encodeURIComponent("Odstoupení od smlouvy") +
+      "&body=" +
+      encodeURIComponent(body);
+  });
+</script>

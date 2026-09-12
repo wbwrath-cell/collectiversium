@@ -1,5 +1,6 @@
 <title>Detail produktu – Collectiversium</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
 <link rel="stylesheet" href="css/style.css" />
 
 <header id="site-header" class="site"></header>
@@ -45,7 +46,7 @@
         <div class="pdp-info">
           <span class="kicker">${p.franchise} / ${p.type}</span>
           <h1>${p.name}</h1>
-          <div class="pdp-price">${formatPrice(p.price)}${p.compareAt ? `<small>${formatPrice(p.compareAt)}</small>` : ""}</div>
+          <div class="pdp-price">${formatPrice(p.price)}</div>
           <p class="pdp-desc">${p.desc}</p>
           <div class="pdp-row">
             <div class="qty-box">

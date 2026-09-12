@@ -747,6 +747,138 @@ footer .logo .ring-o::after { border-color: var(--vermilion); }
   .btn { padding: 13px 20px; font-size: 12px; }
 }
 
+/* ============ LEGAL / PROSE PAGES ============ */
+.legal { padding: 30px 0 80px; max-width: 800px; }
+.legal h1 { font-size: clamp(32px, 5vw, 50px); margin: 10px 0 8px; }
+.legal .updated {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 28px;
+}
+.legal .company-box {
+  border: var(--rule); background: var(--paper-hi);
+  padding: 18px 20px; margin-bottom: 34px; font-size: 13.5px;
+}
+.legal .company-box div { padding: 2px 0; }
+.legal .toc {
+  border: var(--rule); background: var(--paper-hi);
+  padding: 18px 20px; margin-bottom: 36px;
+}
+.legal .toc h4 {
+  margin: 0 0 10px; font-family: var(--font-mono); font-size: 10.5px;
+  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--vermilion);
+}
+.legal .toc ol { margin: 0; padding-left: 18px; font-size: 13px; }
+.legal .toc li { margin-bottom: 5px; }
+.legal .toc a:hover { color: var(--vermilion); }
+.legal h2 {
+  font-family: var(--font-body); font-weight: 900; text-transform: none;
+  letter-spacing: 0; line-height: 1.3; font-size: 19px;
+  margin: 0 0 14px; padding-top: 26px; border-top: var(--rule);
+}
+.legal h2:first-of-type { border-top: none; padding-top: 0; }
+.legal h3 {
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--vermilion);
+  margin: 22px 0 8px;
+}
+.legal p { font-size: 14.5px; color: var(--ink-2); margin: 0 0 14px; }
+.legal ul, .legal ol { margin: 0 0 14px; padding-left: 22px; font-size: 14.5px; color: var(--ink-2); }
+.legal li { margin-bottom: 6px; }
+.legal strong { color: var(--ink); }
+.legal .callout {
+  border: 2px dashed var(--ink); background: var(--paper);
+  padding: 16px 18px; margin: 18px 0; font-size: 13.5px;
+}
+.legal .callout.warn { border-color: var(--vermilion); }
+.legal a.inline-link { color: var(--vermilion); text-decoration: underline; }
+.legal table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: 13.5px; }
+.legal table th, .legal table td { border: 1px solid var(--ink-3); padding: 8px 10px; text-align: left; }
+.legal table th { background: var(--paper-2); font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.legal .form-box {
+  border: var(--rule-thick); background: var(--paper-hi); box-shadow: var(--hard-sm);
+  padding: 24px 26px; margin: 24px 0;
+}
+.legal .form-box .field { margin-bottom: 14px; }
+.legal .form-box .field label {
+  display: block; font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px;
+}
+.legal .form-box .line {
+  border-bottom: 1px dashed var(--ink-3); min-height: 22px; padding: 2px 0;
+}
+.wd-input {
+  width: 100%; padding: 9px 12px;
+  border: var(--rule); background: var(--paper);
+  font-family: var(--font-body); font-size: 14px; color: var(--ink);
+}
+.wd-input:focus { outline: none; box-shadow: var(--hard-sm); }
+.wd-error { color: var(--vermilion); font-weight: 700; font-size: 13px; }
+.wd-error[hidden] { display: none; }
+.wd-summary { border-top: var(--rule); margin: 16px 0 20px; }
+.wd-row {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 9px 0; border-bottom: 1px dashed rgba(20,16,14,0.28); font-size: 13.5px;
+}
+.wd-row b {
+  font-family: var(--font-mono); font-weight: 500; font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
+}
+.wd-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.wd-fallback {
+  background: var(--paper); border: var(--rule); padding: 14px;
+  font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6;
+  white-space: pre-wrap; overflow-x: auto; margin: 0;
+}
+.footer-withdraw {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 2px solid var(--paper); padding: 9px 16px; margin-top: 4px;
+  font-family: var(--font-body); font-size: 11px; font-weight: 900;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper);
+}
+.footer-withdraw:hover { background: var(--paper); color: var(--ink); }
+
+/* ============ COOKIE BANNER ============ */
+.cookie-banner {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 500;
+  background: var(--ink); color: var(--paper);
+  border-top: var(--rule-thick);
+  padding: 16px clamp(16px, 3vw, 34px);
+  display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+}
+.cookie-banner[hidden] { display: none; }
+.cookie-banner p { margin: 0; font-size: 12.5px; max-width: 620px; color: rgba(242,237,227,0.82); line-height: 1.55; }
+.cookie-banner a { color: var(--paper); text-decoration: underline; }
+.cookie-main { display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; width: 100%; }
+.cookie-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Všechna tlačítka musí být vizuálně rovnocenná — ÚOOÚ zakazuje zvýhodňovat "přijmout". */
+.cookie-btn {
+  padding: 10px 18px; font-size: 11px;
+  background: var(--paper); color: var(--ink);
+  border: var(--rule); box-shadow: none;
+}
+.cookie-btn:hover { transform: none; box-shadow: 3px 3px 0 var(--vermilion); }
+.cookie-btn-alt { background: transparent; color: var(--paper); border-color: var(--paper); }
+
+.cookie-detail {
+  width: 100%; margin-top: 16px; padding-top: 16px;
+  border-top: 1px solid rgba(242,237,227,0.25);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cookie-detail[hidden] { display: none; }
+.cookie-cat {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 12.5px; color: rgba(242,237,227,0.82); line-height: 1.5;
+  max-width: 720px; cursor: pointer;
+}
+.cookie-cat input { accent-color: var(--vermilion); width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+.cookie-cat strong { color: var(--paper); }
+.cookie-detail .cookie-btn { align-self: flex-start; }
+
+@media (max-width: 560px) {
+  .legal .company-box, .legal .form-box { padding: 14px 16px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   .ticker-track { animation: none; }
