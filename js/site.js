@@ -68,8 +68,12 @@ function buildNav() {
 
 function cardHTML(p) {
   const soldOut = p.stock === 0;
+  const noPrice = p.price == null;
+  const unavailable = soldOut || noPrice;
   const stamp = soldOut
     ? '<span class="card-stamp out">Vyprodáno</span>'
+    : noPrice
+    ? '<span class="card-stamp">Cena na dotaz</span>'
     : p.stock <= 6
     ? `<span class="card-stamp">Poslední ${p.stock} ks</span>`
     : "";
@@ -84,7 +88,7 @@ function cardHTML(p) {
         <div class="card-title">${p.name}</div>
         <div class="card-bottom">
           <div class="price">${formatPrice(p.price)}</div>
-          <button class="card-add" ${soldOut ? "disabled" : ""} onclick="event.preventDefault();addToCart('${p.id}');" aria-label="Přidat do košíku">+</button>
+          <button class="card-add" ${unavailable ? "disabled" : ""} onclick="event.preventDefault();addToCart('${p.id}');" aria-label="Přidat do košíku">+</button>
         </div>
       </div>
     </a>`;

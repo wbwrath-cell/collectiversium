@@ -40,6 +40,9 @@
       </div>`;
 
     const soldOut = p.stock === 0;
+    const noPrice = p.price == null;
+    const unavailable = soldOut || noPrice;
+    const addLabel = soldOut ? "Vyprodáno" : noPrice ? "Cena na dotaz" : "Přidat do košíku";
     root.innerHTML = `
       <div class="pdp">
         <div class="pdp-media" style="${franchiseStyle(p.franchise)}"><span>${p.name}</span></div>
@@ -54,7 +57,7 @@
               <input id="qty-input" value="1" />
               <button id="qty-inc" aria-label="Přidat">+</button>
             </div>
-            <button class="btn" id="add-btn" ${soldOut ? "disabled" : ""}>${soldOut ? "Vyprodáno" : "Přidat do košíku"}</button>
+            <button class="btn" id="add-btn" ${unavailable ? "disabled" : ""}>${addLabel}</button>
           </div>
           <div class="stock-line ${soldOut ? "out" : p.stock <= 6 ? "low" : ""}">${
             soldOut ? "Momentálně nedostupné" : p.stock <= 6 ? `Poslední ${p.stock} ks skladem` : `Skladem — ${p.stock} ks`

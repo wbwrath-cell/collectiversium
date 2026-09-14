@@ -424,7 +424,7 @@ header.site {
 .section-head .more:hover { color: var(--ink); }
 
 /* ============ CATEGORY TILES ============ */
-.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .tile {
   position: relative;
   border: var(--rule-thick);

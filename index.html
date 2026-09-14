@@ -16,8 +16,8 @@
         &amp; <span class="redline">Figurky</span>
       </h1>
       <p class="lede">
-        TCG boostery, sběratelské edice z filmů a seriálů a limitované figurky.
-        Zapečetěné, originální, od ověřených dodavatelů.
+        Sběratelské karty KAYOU (Naruto, Demon Slayer, Sakamoto Days), anime
+        figurky a plyšáci. Zapečetěné, originální, od ověřených dodavatelů.
       </p>
       <div class="hero-actions">
         <a href="products.html" class="btn">Prozkoumat nabídku</a>
@@ -47,7 +47,7 @@
   <div class="section-head">
     <div>
       <span class="kicker">Sortiment</span>
-      <h2>Tři světy,<br />jedna sbírka</h2>
+      <h2>Naše světy,<br />jedna sbírka</h2>
     </div>
     <a href="products.html" class="more">Celý katalog →</a>
   </div>
@@ -72,9 +72,8 @@
 <script src="js/site.js"></script>
 <script>
   const TILE_DESC = {
-    "karty": "Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana i sběratelské série jako Kayou.",
-    "filmy-serialy": "Marvel, DC, Star Wars, Harry Potter, Disney a anime edice a merch.",
-    "figurky": "Funko Pop!, DeAgostini, limitované figurky, busty a repliky.",
+    "karty": "KAYOU Naruto, Demon Slayer a Sakamoto Days — uzavřené boxy i jednotlivé balíčky.",
+    "figurky": "Naruto Shippuden mini figurky, Funko piny a Pokémon plyšáci s kartou.",
   };
 
   document.getElementById("tiles").innerHTML = CATEGORIES.map((cat, i) => {
@@ -91,8 +90,9 @@
   }).join("");
 
   const featured = [
-    "pkm-151-box", "marvel-steelbook", "funko-spiderman", "op-romance-op01",
-    "nrt-tier1-box", "bust-batman", "lorcana-rotf-pack", "hp-pin-set",
+    "kayou-naruto-platinum-hs-s01-box", "kayou-demonslayer-box", "sakamoto-days-box",
+    "kayou-naruto-heavenscroll-s07-pack", "naruto-shippuden-minifig-8pack",
+    "funko-pin-kawaki", "pokemon-plush-plusle", "pokemon-plush-minun",
   ];
   document.getElementById("featured-grid").innerHTML = featured
     .map((id) => getProduct(id))
@@ -100,7 +100,7 @@
     .map(cardHTML)
     .join("");
 
-  const plate = ["pkm-151-box", "op-romance-op01", "funko-spiderman"]
+  const plate = ["kayou-naruto-platinum-hs-s01-box", "kayou-demonslayer-box", "pokemon-plush-plusle"]
     .map((id) => getProduct(id))
     .filter(Boolean);
   document.getElementById("plate-grid").innerHTML = plate
