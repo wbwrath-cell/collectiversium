@@ -40,25 +40,30 @@
       </div>`;
 
     const soldOut = p.stock === 0;
-    const noPrice = p.price == null;
+    const noPrice = p.price == null && !p.buyLink;
     const unavailable = soldOut || noPrice;
-    const addLabel = soldOut ? "Vyprodáno" : noPrice ? "Cena na dotaz" : "Přidat do košíku";
+
+    const purchaseBlock = p.buyLink
+      ? `<a class="btn" href="${p.buyLink}" target="_blank" rel="noopener">Koupit</a>`
+      : `
+        <div class="qty-box">
+          <button id="qty-dec" aria-label="Ubrat">−</button>
+          <input id="qty-input" value="1" />
+          <button id="qty-inc" aria-label="Přidat">+</button>
+        </div>
+        <button class="btn" id="add-btn" ${unavailable ? "disabled" : ""}>${soldOut ? "Vyprodáno" : noPrice ? "Cena na dotaz" : "Přidat do košíku"}</button>`;
+
     root.innerHTML = `
       <div class="pdp">
-        <div class="pdp-media" style="${franchiseStyle(p.franchise)}"><span>${p.name}</span></div>
+        <div class="pdp-media${p.image ? " has-photo" : ""}" style="${p.image ? "" : franchiseStyle(p.franchise)}">${
+          p.image ? `<img src="${p.image}" alt="${p.name}" />` : `<span>${p.name}</span>`
+        }</div>
         <div class="pdp-info">
           <span class="kicker">${p.franchise} / ${p.type}</span>
           <h1>${p.name}</h1>
           <div class="pdp-price">${formatPrice(p.price)}</div>
           <p class="pdp-desc">${p.desc}</p>
-          <div class="pdp-row">
-            <div class="qty-box">
-              <button id="qty-dec" aria-label="Ubrat">−</button>
-              <input id="qty-input" value="1" />
-              <button id="qty-inc" aria-label="Přidat">+</button>
-            </div>
-            <button class="btn" id="add-btn" ${unavailable ? "disabled" : ""}>${addLabel}</button>
-          </div>
+          <div class="pdp-row">${purchaseBlock}</div>
           <div class="stock-line ${soldOut ? "out" : p.stock <= 6 ? "low" : ""}">${
             soldOut ? "Momentálně nedostupné" : p.stock <= 6 ? `Poslední ${p.stock} ks skladem` : `Skladem — ${p.stock} ks`
           }</div>
@@ -69,22 +74,24 @@
         </div>
       </div>`;
 
-    document.getElementById("qty-inc").onclick = () => {
-      const el = document.getElementById("qty-input");
-      el.value = Math.max(1, parseInt(el.value || "1") + 1);
-    };
-    document.getElementById("qty-dec").onclick = () => {
-      const el = document.getElementById("qty-input");
-      el.value = Math.max(1, parseInt(el.value || "1") - 1);
-    };
-    document.getElementById("add-btn").onclick = () => {
-      const qty = Math.max(1, parseInt(document.getElementById("qty-input").value || "1"));
-      addToCart(p.id, qty);
-      const btn = document.getElementById("add-btn");
-      const original = btn.textContent;
-      btn.textContent = "Přidáno ✓";
-      setTimeout(() => (btn.textContent = original), 1200);
-    };
+    if (!p.buyLink) {
+      document.getElementById("qty-inc").onclick = () => {
+        const el = document.getElementById("qty-input");
+        el.value = Math.max(1, parseInt(el.value || "1") + 1);
+      };
+      document.getElementById("qty-dec").onclick = () => {
+        const el = document.getElementById("qty-input");
+        el.value = Math.max(1, parseInt(el.value || "1") - 1);
+      };
+      document.getElementById("add-btn").onclick = () => {
+        const qty = Math.max(1, parseInt(document.getElementById("qty-input").value || "1"));
+        addToCart(p.id, qty);
+        const btn = document.getElementById("add-btn");
+        const original = btn.textContent;
+        btn.textContent = "Přidáno ✓";
+        setTimeout(() => (btn.textContent = original), 1200);
+      };
+    }
 
     const related = PRODUCTS.filter((rp) => rp.franchise === p.franchise && rp.id !== p.id);
     const relatedPool = related.length >= 4 ? related : PRODUCTS.filter((rp) => rp.category === p.category && rp.id !== p.id);

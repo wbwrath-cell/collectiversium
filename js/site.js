@@ -68,7 +68,7 @@ function buildNav() {
 
 function cardHTML(p) {
   const soldOut = p.stock === 0;
-  const noPrice = p.price == null;
+  const noPrice = p.price == null && !p.buyLink;
   const unavailable = soldOut || noPrice;
   const stamp = soldOut
     ? '<span class="card-stamp out">Vyprodáno</span>'
@@ -77,18 +77,24 @@ function cardHTML(p) {
     : p.stock <= 6
     ? `<span class="card-stamp">Poslední ${p.stock} ks</span>`
     : "";
+  const addBtn = p.buyLink
+    ? `<button class="card-add" onclick="event.preventDefault();window.open('${p.buyLink}','_blank');" aria-label="Koupit">+</button>`
+    : `<button class="card-add" ${unavailable ? "disabled" : ""} onclick="event.preventDefault();addToCart('${p.id}');" aria-label="Přidat do košíku">+</button>`;
+  const media = p.image
+    ? `<img src="${p.image}" alt="${p.name}" loading="lazy" />`
+    : `<span class="card-media-label">${p.name}</span>`;
   return `
     <a href="product.html?id=${p.id}" class="card">
-      <div class="card-media" style="${franchiseStyle(p.franchise)}">
+      <div class="card-media${p.image ? " has-photo" : ""}" style="${p.image ? "" : franchiseStyle(p.franchise)}">
         ${stamp}
-        <span class="card-media-label">${p.name}</span>
+        ${media}
       </div>
       <div class="card-body">
         <div class="card-kicker">${p.franchise} / ${p.type}</div>
         <div class="card-title">${p.name}</div>
         <div class="card-bottom">
           <div class="price">${formatPrice(p.price)}</div>
-          <button class="card-add" ${unavailable ? "disabled" : ""} onclick="event.preventDefault();addToCart('${p.id}');" aria-label="Přidat do košíku">+</button>
+          ${addBtn}
         </div>
       </div>
     </a>`;

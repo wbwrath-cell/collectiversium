@@ -32,11 +32,13 @@ const PRODUCTS = [
   // --- Karty / Sběratelské karty — uzavřené boxy ---
   {
     id: "kayou-naruto-platinum-hs-s01-box",
-    category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Box",
+    category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Balíček",
     name: "KAYOU Naruto — Platinum, Heaven Scroll Series 01",
-    price: null, compareAt: null, stock: 1,
-    desc: "Uzavřený box sběratelských karet KAYOU Naruto z prémiové řady Platinum, edice Heaven Scroll (Series 01). Zapečetěné balení s náhodným obsahem.",
-    facts: { "Výrobce": "KAYOU", "Edice": "Platinum — Heaven Scroll", "Série": "Series 01", "Stav": "Nový, zapečetěný box" },
+    price: 169, compareAt: null, stock: 1,
+    buyLink: "https://checkout.revolut.com/pay/6dc070ed-f217-47bf-a4eb-91e110978a1f",
+    image: "img/kayou-naruto-platinum-hs-s01.jpg",
+    desc: "Balíček sběratelských karet KAYOU Naruto z prémiové řady Platinum, edice Heaven Scroll (Series 01). Zapečetěné balení, 8 karet.",
+    facts: { "Výrobce": "KAYOU", "Edice": "Platinum — Heaven Scroll", "Série": "Series 01", "Karet v balíčku": "8", "Stav": "Nový, zapečetěný" },
   },
   {
     id: "kayou-demonslayer-box",
