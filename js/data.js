@@ -44,10 +44,12 @@ const PRODUCTS = [
   {
     id: "kayou-demonslayer-box",
     category: "karty", group: "Sběratelské karty", franchise: "Demon Slayer", type: "Box",
-    name: "KAYOU Demon Slayer — uzavřený box",
-    price: null, compareAt: null, stock: 1,
-    desc: "Uzavřený box sběratelských karet KAYOU z licence Demon Slayer / Kimetsu no Yaiba (鬼灭之刃). Zapečetěné balení.",
-    facts: { "Výrobce": "KAYOU", "Licence": "Demon Slayer (鬼灭之刃)", "Stav": "Nový, zapečetěný box" },
+    name: "KAYOU Demon Slayer — 无限城篇, Series 01",
+    price: 1399, compareAt: null, stock: 1,
+    buyLink: "https://checkout.revolut.com/pay/743eeb25-6489-4a02-a0be-a747b5fded24",
+    image: "img/kayou-demonslayer-box.webp",
+    desc: "Uzavřený box sběratelských karet KAYOU z licence Demon Slayer / Kimetsu no Yaiba (鬼灭之刃), edice 无限城篇 (Infinity Castle Chapter), Series 01. Zapečetěné balení.",
+    facts: { "Výrobce": "KAYOU", "Licence": "Demon Slayer (鬼灭之刃)", "Edice": "无限城篇 (Infinity Castle Chapter)", "Série": "Series 01", "Stav": "Nový, zapečetěný box" },
   },
   {
     id: "sakamoto-days-box",
