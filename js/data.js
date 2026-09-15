@@ -64,10 +64,12 @@ const PRODUCTS = [
   {
     id: "bleach-box",
     category: "karty", group: "Sběratelské karty", franchise: "Bleach", type: "Box",
-    name: "Bleach — sběratelské karty, box",
-    price: null, compareAt: null, stock: 3,
-    desc: "Uzavřený box sběratelských karet z licence Bleach. Zapečetěné balení.",
-    facts: { "Licence": "Bleach", "Stav": "Nový, zapečetěný box" },
+    name: "Bleach: Thousand-Year Blood War — 千年血战篇, box",
+    price: 1199, compareAt: null, stock: 3,
+    buyLink: "https://checkout.revolut.com/pay/e7afd739-b97a-45ec-ae49-79dbd10923c0",
+    image: "img/bleach-box.webp",
+    desc: "Uzavřený box sběratelských karet Bleach: Thousand-Year Blood War (千年血战篇), licence JUMP. Zapečetěné balení.",
+    facts: { "Licence": "Bleach: Thousand-Year Blood War (JUMP)", "Stav": "Nový, zapečetěný box" },
   },
   {
     id: "kayou-naruto-s07-bingzhi-box",
