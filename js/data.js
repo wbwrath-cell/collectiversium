@@ -55,7 +55,6 @@ const PRODUCTS = [
     name: "Sakamoto Days — sběratelské karty, box",
     price: 1399, compareAt: null, stock: 1,
     buyLink: "https://checkout.revolut.com/pay/5416f4fb-1d52-4fce-a8f8-e512e3d823d7",
-    image: "public/images/products/kayou-naruto-t2w7-booster-box-predni.webp",
     desc: "Uzavřený box sběratelských karet Sakamoto Days od CardFun, licencováno Netflixem. Zapečetěné balení.",
     facts: { "Výrobce": "CardFun", "Licence": "Sakamoto Days (Netflix)", "Stav": "Nový, zapečetěný box" },
   },
