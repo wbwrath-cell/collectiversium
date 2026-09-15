@@ -53,11 +53,24 @@
         </div>
         <button class="btn" id="add-btn" ${unavailable ? "disabled" : ""}>${soldOut ? "Vyprodáno" : noPrice ? "Cena na dotaz" : "Přidat do košíku"}</button>`;
 
+    const gallery = p.images && p.images.length > 1 ? p.images : null;
+    const thumbs = gallery
+      ? `<div class="pdp-thumbs">${gallery
+          .map(
+            (src, i) =>
+              `<button class="pdp-thumb${i === 0 ? " active" : ""}" data-src="${src}"><img src="${src}" alt="${p.name} – náhled ${i + 1}" /></button>`
+          )
+          .join("")}</div>`
+      : "";
+
     root.innerHTML = `
       <div class="pdp">
-        <div class="pdp-media${p.image ? " has-photo" : ""}" style="${p.image ? "" : franchiseStyle(p.franchise)}">${
-          p.image ? `<img src="${p.image}" alt="${p.name}" />` : `<span>${p.name}</span>`
-        }</div>
+        <div class="pdp-media-wrap">
+          <div class="pdp-media${p.image ? " has-photo" : ""}" style="${p.image ? "" : franchiseStyle(p.franchise)}" id="pdp-media">${
+            p.image ? `<img src="${p.image}" alt="${p.name}" />` : `<span>${p.name}</span>`
+          }</div>
+          ${thumbs}
+        </div>
         <div class="pdp-info">
           <span class="kicker">${p.franchise} / ${p.type}</span>
           <h1>${p.name}</h1>
@@ -73,6 +86,16 @@
           <div class="badge-note">Originál zboží od ověřených dodavatelů — prodáváme výhradně v zapečetěném / neotevřeném stavu.</div>
         </div>
       </div>`;
+
+    if (gallery) {
+      document.querySelectorAll(".pdp-thumb").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelector("#pdp-media img").src = btn.dataset.src;
+          document.querySelectorAll(".pdp-thumb").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+    }
 
     if (!p.buyLink) {
       document.getElementById("qty-inc").onclick = () => {
