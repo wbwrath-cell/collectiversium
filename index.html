@@ -104,7 +104,11 @@
     .map((id) => getProduct(id))
     .filter(Boolean);
   document.getElementById("plate-grid").innerHTML = plate
-    .map((p) => `<div class="plate-card" style="${franchiseStyle(p.franchise)}"><span>${p.franchise}</span></div>`)
+    .map((p) =>
+      p.image
+        ? `<div class="plate-card has-photo"><img src="${p.image}" alt="${p.name}" /><span>${p.franchise}</span></div>`
+        : `<div class="plate-card" style="${franchiseStyle(p.franchise)}"><span>${p.franchise}</span></div>`
+    )
     .join("");
   document.getElementById("plate-count").textContent =
     PRODUCTS.filter((p) => p.stock > 0).length + " skladem";
