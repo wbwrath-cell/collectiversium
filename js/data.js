@@ -83,6 +83,16 @@ const PRODUCTS = [
     facts: { "Výrobce": "KAYOU", "Licence": "My Little Pony (小马宝莉)", "Edice": "Friendship Forever — Series 6", "Boosterů v boxu": "10", "Stav": "Nový, zapečetěný box" },
   },
   {
+    id: "mlp-applejack-box",
+    category: "karty", group: "Sběratelské karty", franchise: "My Little Pony", type: "Box",
+    name: "KAYOU My Little Pony 小马宝莉 — Applejack, Series 6",
+    price: 1099, compareAt: null, stock: 1,
+    buyLink: "https://checkout.revolut.com/pay/cf261090-04f1-4cab-bb6c-a1592f4c0a5f",
+    image: "img/mlp-applejack-box.webp",
+    desc: "Uzavřený box sběratelských karet KAYOU My Little Pony (小马宝莉), edice „Friendship Forever“ (友谊永恒卡牌), motiv Applejack, Series 6. Obsahuje 10 boosterů. Zapečetěné balení.",
+    facts: { "Výrobce": "KAYOU", "Licence": "My Little Pony (小马宝莉)", "Edice": "Friendship Forever — Series 6", "Boosterů v boxu": "10", "Stav": "Nový, zapečetěný box" },
+  },
+  {
     id: "kayou-naruto-s07-bingzhi-box",
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Box",
     name: "KAYOU Naruto 火影忍者 — Series 07, 兵之章",
