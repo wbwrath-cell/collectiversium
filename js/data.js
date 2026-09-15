@@ -118,10 +118,12 @@ const PRODUCTS = [
   {
     id: "kayou-naruto-heavenscroll-s07-pack",
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Balíček",
-    name: "KAYOU Naruto — Heaven Scroll, Series 07",
-    price: null, compareAt: null, stock: 4,
-    desc: "Balíček KAYOU Naruto z edice Heaven Scroll, Series 07. Obsahuje 8 karet.",
-    facts: { "Výrobce": "KAYOU", "Edice": "Heaven Scroll", "Série": "Series 07", "Karet v balíčku": "8", "Stav": "Nový, zapečetěný" },
+    name: "KAYOU Naruto 火影忍者 — Series 07, 兵之章",
+    price: 139, compareAt: null, stock: 4,
+    buyLink: "https://checkout.revolut.com/pay/e60d3b29-674c-44bd-b27a-804d15229cca",
+    image: "img/kayou-naruto-s07-bingzhi-pack.webp",
+    desc: "Balíček KAYOU Naruto 火影忍者, Series 07 (第七弹), edice 兵之章 (Soldier Chapter). Obsahuje 8 karet.",
+    facts: { "Výrobce": "KAYOU", "Série": "Series 07 (第七弹)", "Edice": "兵之章 (Soldier Chapter)", "Karet v balíčku": "8", "Stav": "Nový, zapečetěný" },
   },
   {
     id: "kayou-naruto-smriti-earthscroll-s08-pack",
