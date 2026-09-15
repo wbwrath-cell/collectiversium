@@ -6,7 +6,7 @@ const CATEGORIES = [
     id: "karty",
     label: "Karty TCG & sběratelské karty",
     groups: [
-      { label: "Sběratelské karty", items: ["Naruto", "Demon Slayer", "Sakamoto Days", "Bleach"] },
+      { label: "Sběratelské karty", items: ["Naruto", "Demon Slayer", "Sakamoto Days", "Bleach", "My Little Pony"] },
     ],
   },
   {
@@ -26,6 +26,7 @@ const FRANCHISE_COLORS = {
   "Sakamoto Days": ["#1d2b6b", "#fbf8f2"],
   "Pokémon": ["#ffd400", "#14100e"],
   "Bleach": ["#c81d3f", "#fbf8f2"],
+  "My Little Pony": ["#e91e8c", "#fbf8f2"],
   "default": ["#e8e0d1", "#14100e"],
 };
 
@@ -70,6 +71,16 @@ const PRODUCTS = [
     image: "img/bleach-box.webp",
     desc: "Uzavřený box sběratelských karet Bleach: Thousand-Year Blood War (千年血战篇), licence JUMP. Zapečetěné balení.",
     facts: { "Licence": "Bleach: Thousand-Year Blood War (JUMP)", "Stav": "Nový, zapečetěný box" },
+  },
+  {
+    id: "mlp-twilight-sparkle-box",
+    category: "karty", group: "Sběratelské karty", franchise: "My Little Pony", type: "Box",
+    name: "KAYOU My Little Pony 小马宝莉 — Twilight Sparkle, Series 6",
+    price: 1099, compareAt: null, stock: 1,
+    buyLink: "https://checkout.revolut.com/pay/2a2123a0-be29-4b23-ad77-a71b293635a6",
+    image: "img/mlp-twilight-sparkle-box.webp",
+    desc: "Uzavřený box sběratelských karet KAYOU My Little Pony (小马宝莉), edice „Friendship Forever“ (友谊永恒卡牌), motiv Twilight Sparkle, Series 6. Obsahuje 10 boosterů. Zapečetěné balení.",
+    facts: { "Výrobce": "KAYOU", "Licence": "My Little Pony (小马宝莉)", "Edice": "Friendship Forever — Series 6", "Boosterů v boxu": "10", "Stav": "Nový, zapečetěný box" },
   },
   {
     id: "kayou-naruto-s07-bingzhi-box",
