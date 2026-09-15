@@ -35,7 +35,7 @@ const PRODUCTS = [
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Balíček",
     name: "KAYOU Naruto — Platinum, Heaven Scroll Series 01",
     price: 169, compareAt: null, stock: 1,
-    buyLink: "https://checkout.revolut.com/pay/6dc070ed-f217-47bf-a4eb-91e110978a1f",
+    buyLink: "https://checkout.revolut.com/pay/9666ebfc-f064-4032-8cfd-2075aab95518",
     image: "img/kayou-naruto-platinum-hs-s01.webp",
     desc: "Balíček sběratelských karet KAYOU Naruto z prémiové řady Platinum, edice Heaven Scroll (Series 01). Zapečetěné balení, 8 karet.",
     facts: { "Výrobce": "KAYOU", "Edice": "Platinum — Heaven Scroll", "Série": "Series 01", "Karet v balíčku": "8", "Stav": "Nový, zapečetěný" },
