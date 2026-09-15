@@ -6,7 +6,7 @@ const CATEGORIES = [
     id: "karty",
     label: "Karty TCG & sběratelské karty",
     groups: [
-      { label: "Sběratelské karty", items: ["Naruto", "Demon Slayer", "Sakamoto Days"] },
+      { label: "Sběratelské karty", items: ["Naruto", "Demon Slayer", "Sakamoto Days", "Bleach"] },
     ],
   },
   {
@@ -25,6 +25,7 @@ const FRANCHISE_COLORS = {
   "Demon Slayer": ["#1f6b4a", "#fbf8f2"],
   "Sakamoto Days": ["#1d2b6b", "#fbf8f2"],
   "Pokémon": ["#ffd400", "#14100e"],
+  "Bleach": ["#c81d3f", "#fbf8f2"],
   "default": ["#e8e0d1", "#14100e"],
 };
 
@@ -57,12 +58,22 @@ const PRODUCTS = [
     facts: { "Výrobce": "CardFun", "Licence": "Sakamoto Days (Netflix)", "Stav": "Nový, zapečetěný box" },
   },
   {
-    id: "kayou-naruto-s07-display-open",
+    id: "bleach-box",
+    category: "karty", group: "Sběratelské karty", franchise: "Bleach", type: "Box",
+    name: "Bleach — sběratelské karty, box",
+    price: null, compareAt: null, stock: 3,
+    desc: "Uzavřený box sběratelských karet z licence Bleach. Zapečetěné balení.",
+    facts: { "Licence": "Bleach", "Stav": "Nový, zapečetěný box" },
+  },
+  {
+    id: "kayou-naruto-s07-bingzhi-box",
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Box",
-    name: "KAYOU Naruto 火影忍者 — Series 07, display box (otevřený)",
-    price: null, compareAt: null, stock: 1,
-    desc: "Otevřený display box KAYOU Naruto, Series 07 (第七弹). Jednotlivé balíčky z tohoto boxu jsou vedené samostatně níže v sekci Sběratelské karty.",
-    facts: { "Výrobce": "KAYOU", "Série": "Series 07 (第七弹)", "Stav": "Otevřený display box — obsah viz jednotlivé balíčky" },
+    name: "KAYOU Naruto 火影忍者 — Series 07, 兵之章",
+    price: 1099, compareAt: null, stock: 1,
+    buyLink: "https://checkout.revolut.com/pay/f53e7dd7-18c2-4e7f-a9ac-f5cbbde57704",
+    image: "img/kayou-naruto-s07-bingzhi-box.webp",
+    desc: "Zapečetěný box sběratelských karet KAYOU Naruto 火影忍者, Series 07 (第七弹), edice 兵之章 (Soldier Chapter). Nikdy neotevřený.",
+    facts: { "Výrobce": "KAYOU", "Série": "Series 07 (第七弹)", "Edice": "兵之章 (Soldier Chapter)", "Stav": "Nový, zapečetěný box" },
   },
 
   // --- Karty / Sběratelské karty — balíčky ---
