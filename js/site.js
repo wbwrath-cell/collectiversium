@@ -14,7 +14,7 @@ function buildNav() {
 
   bar.innerHTML =
     CATEGORIES.map((cat) => `<button class="cat-btn" data-cat="${cat.id}">${cat.label} <span class="car">▾</span></button>`).join("") +
-    `<a href="products.html" class="cat-btn all-link">Všechny produkty</a>`;
+    `<a href="/products.html" class="cat-btn all-link">Všechny produkty</a>`;
 
   panelsHost.innerHTML = CATEGORIES.map(
     (cat) => `
@@ -25,13 +25,13 @@ function buildNav() {
             (g) => `
           <div class="mega-col">
             <h5>${g.label}</h5>
-            <ul>${g.items.map((it) => `<li><a href="products.html?category=${cat.id}&franchise=${encodeURIComponent(it)}">${it}</a></li>`).join("")}</ul>
+            <ul>${g.items.map((it) => `<li><a href="/products.html?category=${cat.id}&franchise=${encodeURIComponent(it)}">${it}</a></li>`).join("")}</ul>
           </div>`
           )
           .join("")}
         <div class="mega-col">
           <h5>&nbsp;</h5>
-          <ul><li><a href="products.html?category=${cat.id}" style="font-weight:700;color:var(--accent-dark);">Zobrazit vše →</a></li></ul>
+          <ul><li><a href="/products.html?category=${cat.id}" style="font-weight:700;color:var(--accent-dark);">Zobrazit vše →</a></li></ul>
         </div>
       </div>
     </div>`
@@ -66,6 +66,18 @@ function buildNav() {
   });
 }
 
+// Produkty bez Revolut odkazu nemají funkční pokladnu — místo slepého košíku
+// je posíláme na e-mail s předvyplněným předmětem.
+const CONTACT_EMAIL = "hello@collectiversium.cz";
+
+function contactMailto(p) {
+  return "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Objednávka: " + p.name);
+}
+
+function productUrl(p) {
+  return "/produkt/" + p.id + ".html";
+}
+
 function cardHTML(p) {
   const soldOut = p.stock === 0;
   const noPrice = p.price == null && !p.buyLink;
@@ -79,12 +91,12 @@ function cardHTML(p) {
     : "";
   const addBtn = p.buyLink
     ? `<button class="card-add" onclick="event.preventDefault();window.open('${p.buyLink}','_blank');" aria-label="Koupit">+</button>`
-    : `<button class="card-add" ${unavailable ? "disabled" : ""} onclick="event.preventDefault();addToCart('${p.id}');" aria-label="Přidat do košíku">+</button>`;
+    : `<button class="card-add" ${soldOut ? "disabled" : ""} onclick="event.preventDefault();window.location.href='${contactMailto(p)}';" aria-label="Napsat pro objednávku">✉</button>`;
   const media = p.image
-    ? `<img src="${p.image}" alt="${p.name}" loading="lazy" />`
+    ? `<img src="/${p.image}" alt="${p.name}" loading="lazy" />`
     : `<span class="card-media-label">${p.name}</span>`;
   return `
-    <a href="product.html?id=${p.id}" class="card">
+    <a href="${productUrl(p)}" class="card">
       <div class="card-media${p.image ? " has-photo" : ""}" style="${p.image ? "" : franchiseStyle(p.franchise)}">
         ${stamp}
         ${media}
@@ -117,7 +129,7 @@ function initCookieBanner() {
   banner.className = "cookie-banner";
   banner.innerHTML = `
     <div class="cookie-main">
-      <p>Nezbytné cookies potřebujeme pro chod webu (např. aby fungoval košík) — ty běží vždy. Analytické a marketingové cookies použijeme jen tehdy, pokud nám k tomu dáte souhlas. Podrobnosti najdete v <a href="ochrana-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</p>
+      <p>Nezbytné cookies potřebujeme pro chod webu (např. aby fungoval košík) — ty běží vždy. Analytické a marketingové cookies použijeme jen tehdy, pokud nám k tomu dáte souhlas. Podrobnosti najdete v <a href="/ochrana-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</p>
       <div class="cookie-actions">
         <button class="btn cookie-btn" id="cookie-reject">Odmítnout vše</button>
         <button class="btn cookie-btn" id="cookie-accept">Přijmout vše</button>
@@ -170,7 +182,7 @@ function initCookieBanner() {
 }
 
 async function initSite() {
-  await Promise.all([loadPartial("site-header", "partials/header.html"), loadPartial("site-footer", "partials/footer.html")]);
+  await Promise.all([loadPartial("site-header", "/partials/header.html"), loadPartial("site-footer", "/partials/footer.html")]);
   buildNav();
   initCookieBanner();
   if (typeof updateCartBadge === "function") updateCartBadge();
@@ -179,7 +191,7 @@ async function initSite() {
   if (searchInput) {
     searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && e.target.value.trim()) {
-        window.location.href = "products.html?q=" + encodeURIComponent(e.target.value.trim());
+        window.location.href = "/products.html?q=" + encodeURIComponent(e.target.value.trim());
       }
     });
   }

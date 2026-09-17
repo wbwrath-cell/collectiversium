@@ -1,7 +1,46 @@
-<title>Collectiversium – Sběratelský marketplace</title>
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<link rel="stylesheet" href="css/style.css" />
+<title>Collectiversium – sběratelské karty KAYOU, anime figurky a plyšáci</title>
+<meta name="description" content="Sběratelské karty KAYOU (Naruto, Demon Slayer, Sakamoto Days, Bleach, My Little Pony), anime figurky a Pokémon plyšáci. Originální zapečetěné zboží od ověřených dodavatelů, odesíláme do 24 hodin." />
+<link rel="canonical" href="https://collectiversium.cz/" />
+<meta name="robots" content="index, follow" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Collectiversium" />
+<meta property="og:locale" content="cs_CZ" />
+<meta property="og:title" content="Collectiversium – sběratelské karty KAYOU, anime figurky a plyšáci" />
+<meta property="og:description" content="Originální zapečetěné sběratelské karty KAYOU, anime figurky a plyšáci. Ověření dodavatelé, odesíláme do 24 hodin." />
+<meta property="og:url" content="https://collectiversium.cz/" />
+<meta property="og:image" content="https://collectiversium.cz/img/header-characters.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Collectiversium – sběratelské karty KAYOU, anime figurky a plyšáci" />
+<meta name="twitter:description" content="Originální zapečetěné sběratelské karty KAYOU, anime figurky a plyšáci. Ověření dodavatelé, odesíláme do 24 hodin." />
+
+<link rel="stylesheet" href="/css/style.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "OnlineStore",
+  "name": "Collectiversium",
+  "url": "https://collectiversium.cz/",
+  "description": "Sběratelské karty KAYOU, anime figurky a plyšáci. Originální zapečetěné zboží od ověřených dodavatelů.",
+  "email": "hello@collectiversium.cz",
+  "telephone": "+420799519856",
+  "currenciesAccepted": "CZK",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Bystřická 1645",
+    "addressLocality": "Kadaň",
+    "postalCode": "432 01",
+    "addressCountry": "CZ"
+  }
+}
+</script>
+</head>
+<body>
 
 <header id="site-header" class="site"></header>
 
@@ -20,8 +59,8 @@
         figurky a plyšáci. Zapečetěné, originální, od ověřených dodavatelů.
       </p>
       <div class="hero-actions">
-        <a href="products.html" class="btn">Prozkoumat nabídku</a>
-        <a href="products.html?category=karty" class="btn secondary">Karty</a>
+        <a href="/products.html" class="btn">Prozkoumat nabídku</a>
+        <a href="/products.html?category=karty" class="btn secondary">Karty</a>
       </div>
     </div>
 
@@ -49,7 +88,7 @@
       <span class="kicker">Sortiment</span>
       <h2>Naše světy,<br />jedna sbírka</h2>
     </div>
-    <a href="products.html" class="more">Celý katalog →</a>
+    <a href="/products.html" class="more">Celý katalog →</a>
   </div>
   <div class="tiles" id="tiles"></div>
 </section>
@@ -60,16 +99,16 @@
       <span class="kicker">Výběr redakce</span>
       <h2>Doporučené kusy</h2>
     </div>
-    <a href="products.html" class="more">Zobrazit vše →</a>
+    <a href="/products.html" class="more">Zobrazit vše →</a>
   </div>
   <div class="grid" id="featured-grid"></div>
 </section>
 
 <footer id="site-footer" class="site"></footer>
 
-<script src="js/data.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/site.js"></script>
+<script src="/js/data.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/site.js"></script>
 <script>
   const TILE_DESC = {
     "karty": "KAYOU Naruto, Demon Slayer a Sakamoto Days — uzavřené boxy i jednotlivé balíčky.",
@@ -80,7 +119,7 @@
     const tags = cat.groups.flatMap((g) => g.items).slice(0, 4);
     const count = PRODUCTS.filter((p) => p.category === cat.id).length;
     return `
-      <a href="products.html?category=${cat.id}" class="tile" data-num="0${i + 1}">
+      <a href="/products.html?category=${cat.id}" class="tile" data-num="0${i + 1}">
         <span class="kicker">${count} položek</span>
         <h3>${cat.label}</h3>
         <p>${TILE_DESC[cat.id] || ""}</p>
@@ -106,10 +145,12 @@
   document.getElementById("plate-grid").innerHTML = plate
     .map((p) =>
       p.image
-        ? `<div class="plate-card has-photo"><img src="${p.image}" alt="${p.name}" /><span>${p.franchise}</span></div>`
+        ? `<div class="plate-card has-photo"><img src="/${p.image}" alt="${p.name}" /><span>${p.franchise}</span></div>`
         : `<div class="plate-card" style="${franchiseStyle(p.franchise)}"><span>${p.franchise}</span></div>`
     )
     .join("");
   document.getElementById("plate-count").textContent =
     PRODUCTS.filter((p) => p.stock > 0).length + " skladem";
 </script>
+</body>
+</html>

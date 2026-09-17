@@ -1,7 +1,14 @@
-<title>Košík – Collectiversium</title>
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<link rel="stylesheet" href="css/style.css" />
+<title>Košík – Collectiversium</title>
+<!-- Obsah košíku je pro každého jiný — do vyhledávání nepatří. -->
+<meta name="robots" content="noindex, follow" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
 
 <header id="site-header" class="site"></header>
 
@@ -17,12 +24,19 @@
 
 <footer id="site-footer" class="site"></footer>
 
-<script src="js/data.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/site.js"></script>
+<script src="/js/data.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/site.js"></script>
 <script>
   const FREE_SHIP_THRESHOLD = 2000;
   const SHIP_COST = 89;
+
+  // Pokladna zatím neběží přes bránu — souhrn košíku pošleme e-mailem.
+  function orderMailto(items) {
+    const lines = items.map((it) => `${it.qty}x ${it.p.name} — ${formatPrice(it.p.price * it.qty)}`).join("\n");
+    const body = `Dobrý den,\n\nrád/a bych objednal/a:\n\n${lines}\n\nDěkuji.`;
+    return "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Objednávka z košíku") + "&body=" + encodeURIComponent(body);
+  }
 
   function renderCart() {
     const cart = readCart();
@@ -34,7 +48,7 @@
         <div class="empty-state">
           <div class="big">Prázdno</div>
           <p>V košíku zatím nic není</p>
-          <a class="btn" href="products.html">Prohlédnout nabídku</a>
+          <a class="btn" href="/products.html">Prohlédnout nabídku</a>
         </div>`;
       return;
     }
@@ -58,7 +72,7 @@
                   <div class="cart-item-info">
                     <div class="cart-thumb" style="${franchiseStyle(it.p.franchise)}"></div>
                     <div>
-                      <div class="name"><a href="product.html?id=${it.p.id}">${it.p.name}</a></div>
+                      <div class="name"><a href="/produkt/${it.p.id}.html">${it.p.name}</a></div>
                       <div class="brand">${it.p.franchise} · ${it.p.type}</div>
                     </div>
                   </div>
@@ -86,11 +100,14 @@
           <div class="summary-row"><span>Doprava</span><span>${shipping === 0 ? "Zdarma" : formatPrice(shipping)}</span></div>
           ${subtotal < FREE_SHIP_THRESHOLD ? `<div class="badge-note">Do dopravy zdarma vám chybí ${formatPrice(FREE_SHIP_THRESHOLD - subtotal)}.</div>` : ""}
           <div class="summary-row total"><span>Celkem</span><span>${formatPrice(total)}</span></div>
-          <button class="btn" style="width:100%;margin-top:16px;" disabled title="Pokladna zatím není zapojená">Pokračovat k pokladně</button>
-          <p style="font-size:12px;color:var(--text-dim);margin-top:10px;">Platební brána zatím není napojená — toto je funkční prototyp bez reálné pokladny.</p>
+          <a class="btn" style="width:100%;margin-top:16px;display:block;text-align:center;" href="${orderMailto(items)}">Dokončit objednávku e-mailem</a>
+          <p style="font-size:12px;color:var(--text-dim);margin-top:10px;">Objednávku dokončíme e-mailem — ozveme se vám s potvrzením a platebními údaji. Jednotlivé položky lze zaplatit i rovnou tlačítkem <b>Koupit</b> na detailu produktu.</p>
         </div>
       </div>`;
   }
 
   renderCart();
 </script>
+
+</body>
+</html>

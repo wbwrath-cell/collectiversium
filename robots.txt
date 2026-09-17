@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Košík je pro každého návštěvníka jiný a nemá co dělat ve výsledcích.
+Disallow: /cart.html
+# Stará URL s parametrem — nahrazena /produkt/<id>.html
+Disallow: /product.html
+
+Sitemap: https://collectiversium.cz/sitemap.xml

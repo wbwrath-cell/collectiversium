@@ -1,123 +1,28 @@
-<title>Detail produktu – Collectiversium</title>
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<link rel="stylesheet" href="css/style.css" />
-
-<header id="site-header" class="site"></header>
-
-<div class="container" id="crumbs-root"></div>
-<div class="container" id="pdp-root"></div>
-
-<section class="section container">
-  <div class="section-head">
-    <div>
-      <span class="kicker">Ze stejné řady</span>
-      <h2>Mohlo by se vám líbit</h2>
-    </div>
-  </div>
-  <div class="grid" id="related-grid"></div>
-</section>
-
-<footer id="site-footer" class="site"></footer>
-
-<script src="js/data.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/site.js"></script>
+<title>Přesměrování – Collectiversium</title>
+<meta name="robots" content="noindex, follow" />
+<link rel="stylesheet" href="/css/style.css" />
 <script>
-  const id = new URLSearchParams(window.location.search).get("id");
-  const p = getProduct(id);
-  const root = document.getElementById("pdp-root");
-
-  if (!p) {
-    root.innerHTML = `<div class="empty-state"><div class="big">◌</div><p>Produkt nenalezen.</p><a class="btn" href="products.html">Zpět do katalogu</a></div>`;
-  } else {
-    document.title = p.name + " – Collectiversium";
-    document.getElementById("crumbs-root").innerHTML = `
-      <div class="crumbs">
-        <a href="index.html">Domů</a> ›
-        <a href="products.html?category=${p.category}">${categoryLabel(p.category)}</a> ›
-        <a href="products.html?category=${p.category}&franchise=${encodeURIComponent(p.franchise)}">${p.franchise}</a>
-      </div>`;
-
-    const soldOut = p.stock === 0;
-    const noPrice = p.price == null && !p.buyLink;
-    const unavailable = soldOut || noPrice;
-
-    const purchaseBlock = p.buyLink
-      ? `<a class="btn" href="${p.buyLink}" target="_blank" rel="noopener">Koupit</a>`
-      : `
-        <div class="qty-box">
-          <button id="qty-dec" aria-label="Ubrat">−</button>
-          <input id="qty-input" value="1" />
-          <button id="qty-inc" aria-label="Přidat">+</button>
-        </div>
-        <button class="btn" id="add-btn" ${unavailable ? "disabled" : ""}>${soldOut ? "Vyprodáno" : noPrice ? "Cena na dotaz" : "Přidat do košíku"}</button>`;
-
-    const gallery = p.images && p.images.length > 1 ? p.images : null;
-    const thumbs = gallery
-      ? `<div class="pdp-thumbs">${gallery
-          .map(
-            (src, i) =>
-              `<button class="pdp-thumb${i === 0 ? " active" : ""}" data-src="${src}"><img src="${src}" alt="${p.name} – náhled ${i + 1}" /></button>`
-          )
-          .join("")}</div>`
-      : "";
-
-    root.innerHTML = `
-      <div class="pdp">
-        <div class="pdp-media-wrap">
-          <div class="pdp-media${p.image ? " has-photo" : ""}" style="${p.image ? "" : franchiseStyle(p.franchise)}" id="pdp-media">${
-            p.image ? `<img src="${p.image}" alt="${p.name}" />` : `<span>${p.name}</span>`
-          }</div>
-          ${thumbs}
-        </div>
-        <div class="pdp-info">
-          <span class="kicker">${p.franchise} / ${p.type}</span>
-          <h1>${p.name}</h1>
-          <div class="pdp-price">${formatPrice(p.price)}</div>
-          <p class="pdp-desc">${p.desc}</p>
-          <div class="pdp-row">${purchaseBlock}</div>
-          <div class="stock-line ${soldOut ? "out" : p.stock <= 6 ? "low" : ""}">${
-            soldOut ? "Momentálně nedostupné" : p.stock <= 6 ? `Poslední ${p.stock} ks skladem` : `Skladem — ${p.stock} ks`
-          }</div>
-          <ul class="pdp-facts">
-            ${Object.entries(p.facts).map(([k, v]) => `<li><b>${k}</b><span>${v}</span></li>`).join("")}
-          </ul>
-          <div class="badge-note">Originál zboží od ověřených dodavatelů — prodáváme výhradně v zapečetěném / neotevřeném stavu.</div>
-        </div>
-      </div>`;
-
-    if (gallery) {
-      document.querySelectorAll(".pdp-thumb").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document.querySelector("#pdp-media img").src = btn.dataset.src;
-          document.querySelectorAll(".pdp-thumb").forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-        });
-      });
-    }
-
-    if (!p.buyLink) {
-      document.getElementById("qty-inc").onclick = () => {
-        const el = document.getElementById("qty-input");
-        el.value = Math.max(1, parseInt(el.value || "1") + 1);
-      };
-      document.getElementById("qty-dec").onclick = () => {
-        const el = document.getElementById("qty-input");
-        el.value = Math.max(1, parseInt(el.value || "1") - 1);
-      };
-      document.getElementById("add-btn").onclick = () => {
-        const qty = Math.max(1, parseInt(document.getElementById("qty-input").value || "1"));
-        addToCart(p.id, qty);
-        const btn = document.getElementById("add-btn");
-        const original = btn.textContent;
-        btn.textContent = "Přidáno ✓";
-        setTimeout(() => (btn.textContent = original), 1200);
-      };
-    }
-
-    const related = PRODUCTS.filter((rp) => rp.franchise === p.franchise && rp.id !== p.id);
-    const relatedPool = related.length >= 4 ? related : PRODUCTS.filter((rp) => rp.category === p.category && rp.id !== p.id);
-    document.getElementById("related-grid").innerHTML = relatedPool.slice(0, 4).map(cardHTML).join("");
-  }
+  // Historická URL. Detaily produktů se přesunuly na /produkt/<id>.html,
+  // aby každý produkt měl vlastní indexovatelnou stránku. Staré odkazy
+  // (záložky, sdílené linky) tu překlopíme na novou adresu.
+  (function () {
+    var id = new URLSearchParams(window.location.search).get("id");
+    window.location.replace(id ? "/produkt/" + encodeURIComponent(id) + ".html" : "/products.html");
+  })();
 </script>
+</head>
+<body>
+<div class="container" style="padding:80px 0;">
+  <div class="empty-state">
+    <div class="big">◌</div>
+    <p>Přesměrováváme vás na detail produktu…</p>
+    <a class="btn" href="/products.html">Zpět do katalogu</a>
+  </div>
+</div>
+</body>
+</html>

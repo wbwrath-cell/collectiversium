@@ -1,7 +1,27 @@
-<title>Všechny produkty – Collectiversium</title>
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<link rel="stylesheet" href="css/style.css" />
+<title>Katalog – sběratelské karty, figurky a plyšáci | Collectiversium</title>
+<meta name="description" content="Kompletní nabídka Collectiversium: sběratelské karty KAYOU (Naruto, Demon Slayer, Sakamoto Days, Bleach, My Little Pony), anime figurky, Funko piny a Pokémon plyšáci. Vše originální a zapečetěné." />
+<!-- Filtry běží přes ?category=/?franchise=/?q= nad stejným obsahem — všechny
+     varianty proto ukazují na základní URL, ať nevzniká duplicitní obsah. -->
+<link rel="canonical" href="https://collectiversium.cz/products.html" />
+<meta name="robots" content="index, follow" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Collectiversium" />
+<meta property="og:locale" content="cs_CZ" />
+<meta property="og:title" content="Katalog – sběratelské karty, figurky a plyšáci | Collectiversium" />
+<meta property="og:description" content="Sběratelské karty KAYOU, anime figurky a plyšáci. Originální zapečetěné zboží od ověřených dodavatelů." />
+<meta property="og:url" content="https://collectiversium.cz/products.html" />
+<meta property="og:image" content="https://collectiversium.cz/img/header-characters.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
 
 <header id="site-header" class="site"></header>
 
@@ -53,9 +73,9 @@
 
 <footer id="site-footer" class="site"></footer>
 
-<script src="js/data.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/site.js"></script>
+<script src="/js/data.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/site.js"></script>
 <script>
   const params = new URLSearchParams(window.location.search);
   const state = {
@@ -120,8 +140,16 @@
       return true;
     });
 
-    if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
-    if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
+    // Produkty bez ceny ("Cena na dotaz") řadíme vždy na konec — jinak by
+    // odečítání null vyrobilo NaN a pořadí by bylo náhodné.
+    const byPrice = (dir) => (a, b) => {
+      if (a.price == null && b.price == null) return 0;
+      if (a.price == null) return 1;
+      if (b.price == null) return -1;
+      return dir * (a.price - b.price);
+    };
+    if (sort === "price-asc") list.sort(byPrice(1));
+    if (sort === "price-desc") list.sort(byPrice(-1));
     if (sort === "name-asc") list.sort((a, b) => a.name.localeCompare(b.name));
 
     document.getElementById("product-grid").innerHTML = list.length
@@ -154,3 +182,5 @@
   renderFranchiseAndTypeFilters(initialFranchise);
   render();
 </script>
+</body>
+</html>
