@@ -114,6 +114,7 @@ header.site {
   overflow: hidden;
 }
 .nav-top .logo-block { display: flex; flex-direction: column; position: relative; z-index: 1; flex-shrink: 0; }
+.logo-img { display: block; height: 68px; width: auto; }
 
 .logo {
   font-family: var(--font-display);
@@ -764,6 +765,7 @@ footer .logo .ring-o::after { border-color: var(--vermilion); }
   .filters { position: static; padding: 16px 18px; }
   .header-banner { display: none; }
   .nav-top { flex-wrap: wrap; row-gap: 12px; padding-bottom: 12px; }
+  .logo-img { height: 50px; }
   .search-box { order: 3; flex: 1 1 100%; max-width: none; margin-left: 0; }
   .cat-bar { overflow-x: auto; scrollbar-width: none; }
   .cat-bar::-webkit-scrollbar { display: none; }
