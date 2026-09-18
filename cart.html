@@ -28,9 +28,6 @@
 <script src="/js/cart.js"></script>
 <script src="/js/site.js"></script>
 <script>
-  const FREE_SHIP_THRESHOLD = 2000;
-  const SHIP_COST = 89;
-
   // Pokladna zatím neběží přes bránu — souhrn košíku pošleme e-mailem.
   function orderMailto(items) {
     const lines = items.map((it) => `${it.qty}x ${it.p.name} — ${formatPrice(it.p.price * it.qty)}`).join("\n");
@@ -54,9 +51,8 @@
     }
 
     const items = ids.map((id) => ({ p: getProduct(id), qty: cart[id] })).filter((it) => it.p);
-    const subtotal = items.reduce((sum, it) => sum + it.p.price * it.qty, 0);
-    const shipping = subtotal >= FREE_SHIP_THRESHOLD ? 0 : SHIP_COST;
-    const total = subtotal + shipping;
+    // Doprava je plošně zahrnutá v ceně položky — žádný samostatný poplatek k připočítání.
+    const total = items.reduce((sum, it) => sum + it.p.price * it.qty, 0);
 
     root.innerHTML = `
       <div class="cart-layout">
@@ -96,9 +92,7 @@
 
         <div class="summary-box">
           <h3>Souhrn objednávky</h3>
-          <div class="summary-row"><span>Mezisoučet</span><span>${formatPrice(subtotal)}</span></div>
-          <div class="summary-row"><span>Doprava</span><span>${shipping === 0 ? "Zdarma" : formatPrice(shipping)}</span></div>
-          ${subtotal < FREE_SHIP_THRESHOLD ? `<div class="badge-note">Do dopravy zdarma vám chybí ${formatPrice(FREE_SHIP_THRESHOLD - subtotal)}.</div>` : ""}
+          <div class="summary-row"><span>Doprava</span><span>Zahrnuta v ceně</span></div>
           <div class="summary-row total"><span>Celkem</span><span>${formatPrice(total)}</span></div>
           <a class="btn" style="width:100%;margin-top:16px;display:block;text-align:center;" href="${orderMailto(items)}">Dokončit objednávku e-mailem</a>
           <p style="font-size:12px;color:var(--text-dim);margin-top:10px;">Objednávku dokončíme e-mailem — ozveme se vám s potvrzením a platebními údaji. Jednotlivé položky lze zaplatit i rovnou tlačítkem <b>Koupit</b> na detailu produktu.</p>
