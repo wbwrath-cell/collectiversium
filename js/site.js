@@ -82,12 +82,11 @@ function cardHTML(p) {
   const soldOut = p.stock === 0;
   const noPrice = p.price == null && !p.buyLink;
   const unavailable = soldOut || noPrice;
+  // Bez "Poslední N ks" urgence zatím — jen vyprodáno / cena na dotaz.
   const stamp = soldOut
     ? '<span class="card-stamp out">Vyprodáno</span>'
     : noPrice
     ? '<span class="card-stamp">Cena na dotaz</span>'
-    : p.stock <= 6
-    ? `<span class="card-stamp">Poslední ${p.stock} ks</span>`
     : "";
   const addBtn = p.buyLink
     ? `<button class="card-add" onclick="event.preventDefault();window.open('${p.buyLink}','_blank');" aria-label="Koupit">+</button>`

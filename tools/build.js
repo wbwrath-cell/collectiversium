@@ -29,7 +29,7 @@ function loadSiteScripts() {
     fs.readFileSync(path.join(ROOT, "js", "data.js"), "utf8") +
     "\n" +
     fs.readFileSync(path.join(ROOT, "js", "site.js"), "utf8") +
-    "\nexported = { PRODUCTS, CATEGORIES, categoryLabel, formatPrice, franchiseStyle, cardHTML, contactMailto, productUrl };";
+    "\nexported = { PRODUCTS, CATEGORIES, categoryLabel, formatPrice, franchiseStyle, cardHTML, contactMailto, productUrl, activeProducts };";
   vm.runInContext(src, ctx);
   return ctx.exported;
 }
@@ -141,14 +141,15 @@ function mediaBlock(p, S) {
 }
 
 function stockLine(p) {
+  // Bez "Poslední N ks" urgence zatím — jen dostupné / nedostupné.
   if (p.stock === 0) return `<div class="stock-line out">Momentálně nedostupné</div>`;
-  if (p.stock <= 6) return `<div class="stock-line low">Poslední ${p.stock} ks skladem</div>`;
   return `<div class="stock-line">Skladem — ${p.stock} ks</div>`;
 }
 
 function relatedGrid(p, S) {
-  const same = S.PRODUCTS.filter((r) => r.franchise === p.franchise && r.id !== p.id);
-  const pool = same.length >= 4 ? same : S.PRODUCTS.filter((r) => r.category === p.category && r.id !== p.id);
+  const active = S.activeProducts();
+  const same = active.filter((r) => r.franchise === p.franchise && r.id !== p.id);
+  const pool = same.length >= 4 ? same : active.filter((r) => r.category === p.category && r.id !== p.id);
   return pool.slice(0, 4).map(S.cardHTML).join("");
 }
 
@@ -311,16 +312,21 @@ function main() {
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
+  // Draft produkty (bez foto a ceny) nemají stránku vůbec — nejsou v nabídce,
+  // takže by na ně stejně nikde nevedl odkaz.
+  const active = S.activeProducts();
+  const draftCount = S.PRODUCTS.length - active.length;
+
   let indexable = 0;
-  for (const p of S.PRODUCTS) {
+  for (const p of active) {
     fs.writeFileSync(path.join(OUT_DIR, p.id + ".html"), renderProductPage(p, S), "utf8");
     if (isIndexable(p)) indexable++;
   }
 
-  fs.writeFileSync(path.join(ROOT, "sitemap.xml"), renderSitemap(S.PRODUCTS, S), "utf8");
+  fs.writeFileSync(path.join(ROOT, "sitemap.xml"), renderSitemap(active, S), "utf8");
   fs.writeFileSync(path.join(ROOT, "robots.txt"), ROBOTS_TXT, "utf8");
 
-  console.log(`produkt/      ${S.PRODUCTS.length} stránek (${indexable} v indexu, ${S.PRODUCTS.length - indexable} noindex)`);
+  console.log(`produkt/      ${active.length} stránek (${indexable} v indexu, ${active.length - indexable} noindex, ${draftCount} draft vynecháno)`);
   console.log(`sitemap.xml   ${STATIC_PAGES.length + indexable} URL`);
   console.log(`robots.txt    OK`);
 }

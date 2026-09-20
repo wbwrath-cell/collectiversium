@@ -108,7 +108,7 @@ const PRODUCTS = [
     id: "kayou-naruto-smriti-platinum-s02-pack",
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Balíček",
     name: "KAYOU Naruto Smriti — Platinum, JIN Chapter Series 02",
-    price: null, compareAt: null, stock: 1,
+    price: null, compareAt: null, stock: 1, draft: true, // bez foto a ceny — zatím mimo nabídku
     desc: "Balíček KAYOU Naruto Smriti z prémiové řady Platinum, JIN Chapter (Series 02). Obsahuje 5 karet.",
     facts: { "Výrobce": "KAYOU", "Edice": "Smriti — Platinum, JIN Chapter", "Série": "Series 02", "Karet v balíčku": "5", "Stav": "Nový, zapečetěný" },
   },
@@ -116,7 +116,7 @@ const PRODUCTS = [
     id: "kayou-naruto-s06-pack",
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Balíček",
     name: "KAYOU Naruto 火影忍者 — Series 06",
-    price: null, compareAt: null, stock: 1,
+    price: null, compareAt: null, stock: 1, draft: true, // bez foto a ceny — zatím mimo nabídku
     desc: "Balíček KAYOU Naruto 火影忍者, Series 06 (第六弹, řada 阵の章).",
     facts: { "Výrobce": "KAYOU", "Série": "Series 06 (第六弹 · 阵の章)", "Stav": "Nový, zapečetěný" },
   },
@@ -124,7 +124,7 @@ const PRODUCTS = [
     id: "kayou-naruto-s08-pack",
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Balíček",
     name: "KAYOU Naruto 火影忍者 — Series 08",
-    price: null, compareAt: null, stock: 1,
+    price: null, compareAt: null, stock: 1, draft: true, // bez foto a ceny — zatím mimo nabídku
     desc: "Balíček KAYOU Naruto 火影忍者, Series 08 (第八弹, řada 阵の章).",
     facts: { "Výrobce": "KAYOU", "Série": "Series 08 (第八弹 · 阵の章)", "Stav": "Nový, zapečetěný" },
   },
@@ -132,7 +132,7 @@ const PRODUCTS = [
     id: "kayou-naruto-gold-s01-pack",
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Balíček",
     name: "KAYOU Naruto — Gold, Series 01",
-    price: null, compareAt: null, stock: 3,
+    price: null, compareAt: null, stock: 3, draft: true, // bez foto a ceny — zatím mimo nabídku
     desc: "Balíček KAYOU Naruto z prémiové řady Gold, Series 01.",
     facts: { "Výrobce": "KAYOU", "Edice": "Gold", "Série": "Series 01", "Stav": "Nový, zapečetěný" },
   },
@@ -150,7 +150,7 @@ const PRODUCTS = [
     id: "kayou-naruto-smriti-earthscroll-s08-pack",
     category: "karty", group: "Sběratelské karty", franchise: "Naruto", type: "Balíček",
     name: "KAYOU Naruto Smriti — Earth Scroll, Series 08",
-    price: null, compareAt: null, stock: 4,
+    price: null, compareAt: null, stock: 4, draft: true, // bez foto a ceny — zatím mimo nabídku
     desc: "Balíček KAYOU Naruto Smriti z edice Earth Scroll, Series 08. Obsahuje 8 karet.",
     facts: { "Výrobce": "KAYOU", "Edice": "Smriti — Earth Scroll", "Série": "Series 08", "Karet v balíčku": "8", "Stav": "Nový, zapečetěný" },
   },
@@ -195,7 +195,7 @@ const PRODUCTS = [
     id: "pokemon-plush-minun",
     category: "figurky", group: "Plyšáci", franchise: "Pokémon", type: "Plyšák",
     name: "Pokémon — Minun (plyšák + karta)",
-    price: null, compareAt: null, stock: 1,
+    price: null, compareAt: null, stock: 1, draft: true, // bez foto a ceny — zatím mimo nabídku
     desc: "Plyšák Pokémon Minun (负电拍拍) s přiloženou TCG kartou v ochranném obalu.",
     facts: { "Postava": "Minun", "Obsahuje": "TCG karta v obalu", "Stav": "Nové" },
   },
@@ -229,4 +229,10 @@ function formatPrice(v) {
 
 function getProduct(id) {
   return PRODUCTS.find((p) => p.id === id);
+}
+
+// Produkty bez foto a ceny (draft: true) se v katalogu ani na homepage
+// nezobrazují — jsou to rozpracované položky čekající na fotku a odkaz.
+function activeProducts() {
+  return PRODUCTS.filter((p) => !p.draft);
 }

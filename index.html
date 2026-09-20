@@ -95,7 +95,7 @@
 <section class="section container">
   <div class="section-head">
     <div>
-      <span class="kicker">Výběr redakce</span>
+      <span class="kicker">Doporučujeme</span>
       <h2>Doporučené kusy</h2>
     </div>
     <a href="/products.html" class="more">Zobrazit vše →</a>
@@ -116,7 +116,7 @@
 
   document.getElementById("tiles").innerHTML = CATEGORIES.map((cat, i) => {
     const tags = cat.groups.flatMap((g) => g.items).slice(0, 4);
-    const count = PRODUCTS.filter((p) => p.category === cat.id).length;
+    const count = activeProducts().filter((p) => p.category === cat.id).length;
     return `
       <a href="/products.html?category=${cat.id}" class="tile" data-num="0${i + 1}">
         <span class="kicker">${count} položek</span>
@@ -130,7 +130,7 @@
   const featured = [
     "kayou-naruto-platinum-hs-s01-box", "kayou-demonslayer-box", "sakamoto-days-box",
     "kayou-naruto-heavenscroll-s07-pack", "naruto-shippuden-minifig-8pack",
-    "funko-pin-kawaki", "pokemon-plush-plusle", "pokemon-plush-minun",
+    "funko-pin-kawaki", "pokemon-plush-plusle", "mlp-twilight-sparkle-box",
   ];
   document.getElementById("featured-grid").innerHTML = featured
     .map((id) => getProduct(id))
@@ -149,7 +149,7 @@
     )
     .join("");
   document.getElementById("plate-count").textContent =
-    PRODUCTS.filter((p) => p.stock > 0).length + " skladem";
+    activeProducts().filter((p) => p.stock > 0).length + " skladem";
 </script>
 </body>
 </html>

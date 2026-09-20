@@ -85,7 +85,7 @@
   const initialFranchise = params.get("franchise") || "";
 
   function productsInCategory(catId) {
-    return catId ? PRODUCTS.filter((p) => p.category === catId) : PRODUCTS;
+    return catId ? activeProducts().filter((p) => p.category === catId) : activeProducts();
   }
 
   function renderCategoryFilters() {
@@ -131,7 +131,7 @@
     const inStockOnly = document.getElementById("in-stock-only").checked;
     const sort = document.getElementById("sort-select").value;
 
-    let list = PRODUCTS.filter((p) => {
+    let list = activeProducts().filter((p) => {
       if (state.category && p.category !== state.category) return false;
       if (selFranchises.length && !selFranchises.includes(p.franchise)) return false;
       if (selTypes.length && !selTypes.includes(p.type)) return false;
