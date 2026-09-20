@@ -195,7 +195,7 @@ const PRODUCTS = [
     id: "pokemon-plush-minun",
     category: "figurky", group: "Plyšáci", franchise: "Pokémon", type: "Plyšák",
     name: "Pokémon — Minun (plyšák + karta)",
-    price: null, compareAt: null, stock: 1, draft: true, // bez foto a ceny — zatím mimo nabídku
+    price: null, compareAt: null, stock: 1, draft: true, // schované do Vánoc
     desc: "Plyšák Pokémon Minun (负电拍拍) s přiloženou TCG kartou v ochranném obalu.",
     facts: { "Postava": "Minun", "Obsahuje": "TCG karta v obalu", "Stav": "Nové" },
   },
@@ -203,7 +203,7 @@ const PRODUCTS = [
     id: "pokemon-plush-plusle",
     category: "figurky", group: "Plyšáci", franchise: "Pokémon", type: "Plyšák",
     name: "Pokémon — Plusle (plyšák + karta)",
-    price: 1400, compareAt: null, stock: 1,
+    price: 1400, compareAt: null, stock: 1, draft: true, // schované do Vánoc
     desc: "Plyšák Pokémon Plusle (正电拍拍) s přiloženou TCG kartou. Nový, s visačkou.",
     facts: { "Postava": "Plusle", "Obsahuje": "TCG karta v obalu", "Stav": "Nové, s visačkou" },
   },

@@ -130,7 +130,7 @@
   const featured = [
     "kayou-naruto-platinum-hs-s01-box", "kayou-demonslayer-box", "sakamoto-days-box",
     "kayou-naruto-heavenscroll-s07-pack", "naruto-shippuden-minifig-8pack",
-    "funko-pin-kawaki", "pokemon-plush-plusle", "mlp-twilight-sparkle-box",
+    "funko-pin-kawaki", "kayou-naruto-s07-bingzhi-box", "mlp-twilight-sparkle-box",
   ];
   document.getElementById("featured-grid").innerHTML = featured
     .map((id) => getProduct(id))
@@ -138,7 +138,7 @@
     .map(cardHTML)
     .join("");
 
-  const plate = ["kayou-naruto-platinum-hs-s01-box", "kayou-demonslayer-box", "pokemon-plush-plusle"]
+  const plate = ["kayou-naruto-platinum-hs-s01-box", "kayou-demonslayer-box", "bleach-box"]
     .map((id) => getProduct(id))
     .filter(Boolean);
   document.getElementById("plate-grid").innerHTML = plate
