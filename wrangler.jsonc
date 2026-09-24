@@ -1,0 +1,36 @@
+{
+  // Konfigurace Cloudflare Workers.
+  //
+  // Web je statický a leží v kořeni repozitáře. Worker obsluhuje výhradně
+  // /api/* — objednávky, platby a stav objednávky. Všechno ostatní jde
+  // přímo ze statických souborů a Worker se u toho vůbec nespustí.
+  //
+  // Požadavky na statické soubory se neúčtují ani nepočítají do limitu
+  // Workeru; platí se jen volání /api/*.
+
+  "name": "collectiversium",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-24",
+
+  "assets": {
+    "directory": "./",
+    // Bez tohohle by statické soubory obsloužily i /api/* a Worker by se
+    // nespustil. Tenhle řádek je to, co dělá z webu e-shop.
+    "run_worker_first": ["/api/*"],
+    // Neexistující stránka vrátí 404.html (viz níže) místo holé hlášky.
+    "not_found_handling": "404-page"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+
+  // Až bude hotová databáze objednávek, přibude sem binding na D1:
+  //
+  // "d1_databases": [
+  //   { "binding": "DB", "database_name": "collectiversium", "database_id": "..." }
+  // ]
+  //
+  // Tajemství (GOPAY_CLIENT_SECRET a spol.) se sem NIKDY nepíšou —
+  // patří do Secrets v nastavení Workeru.
+}

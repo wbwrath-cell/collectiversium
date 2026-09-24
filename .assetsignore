@@ -1,0 +1,40 @@
+# Soubory, které se NEMAJÍ nahrávat jako veřejné statické soubory.
+# Stejný formát jako .gitignore.
+#
+# Kořen repozitáře je zároveň kořenem webu, takže bez tohohle by byl
+# veřejně čitelný i serverový kód, schéma databáze a build skripty.
+# Nic tajného v nich není — tajemství patří výhradně do Secrets —
+# ale na web nepatří.
+
+# .git NENÍ vyloučen automaticky. Bez tohohle řádku by se kompletní
+# historie repozitáře nahrála jako veřejně stažitelné soubory.
+.git/
+.gitignore
+# Lokální stav wranglera. Leží uvnitř sledovaného adresáře, takže bez
+# tohohle se `wrangler dev` zacyklí: zápis stavu spustí reload, reload
+# zapíše stav, a tak pořád dokola.
+.wrangler/
+
+src/
+server/
+db/
+tools/
+node_modules/
+package.json
+package-lock.json
+wrangler.jsonc
+serve.json
+.assetsignore
+
+# Zbytek po GitHub Pages, na Workers nemá význam.
+CNAME
+
+# Zdrojové fotky produktů (původní PNG z focení). Web používá
+# odvozené .webp varianty, originály jsou v repozitáři jen jako záloha
+# a jsou velké.
+img/*.png
+img/*.PNG
+img/*.jpeg
+img/*.JPEG
+img/*.jpg
+img/*.JPG
