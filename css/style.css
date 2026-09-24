@@ -781,6 +781,74 @@ footer .logo .ring-o::after { border-color: var(--vermilion); }
   .btn { padding: 13px 20px; font-size: 12px; }
 }
 
+/* ============ UVÍTACÍ SEKCE NA HOMEPAGE ============ */
+.welcome {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 0;
+  border: var(--rule-thick);
+  box-shadow: var(--hard);
+  background: var(--paper-hi);
+}
+.welcome-main { padding: clamp(24px, 3vw, 38px); }
+.welcome-main h2 {
+  font-size: clamp(26px, 3.4vw, 40px);
+  line-height: 1.02;
+  margin: 10px 0 16px;
+}
+.welcome-main p { font-size: 14.5px; color: var(--ink-2); margin: 0 0 13px; max-width: 52ch; }
+.welcome-main p:last-child { margin-bottom: 0; }
+.welcome-main .sign {
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-3); margin-top: 18px;
+}
+
+.welcome-side {
+  border-left: var(--rule-thick);
+  background: var(--paper-2);
+  padding: clamp(24px, 3vw, 38px);
+  display: flex; flex-direction: column; gap: 18px;
+}
+.welcome-wip {
+  border-left: 4px solid var(--vermilion);
+  padding-left: 13px;
+  font-size: 13.5px; color: var(--ink-2); margin: 0;
+}
+.welcome-social { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+.welcome-social a {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  border: var(--rule); background: var(--paper-hi);
+  padding: 10px 13px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.welcome-social a:hover { background: var(--vermilion); color: var(--paper-hi); border-color: var(--ink); }
+.welcome-social .at { color: var(--ink-3); letter-spacing: 0.04em; text-transform: none; }
+.welcome-social a:hover .at { color: var(--paper-hi); }
+
+@media (max-width: 760px) {
+  .welcome { grid-template-columns: 1fr; }
+  .welcome-side { border-left: none; border-top: var(--rule-thick); }
+}
+
+/* ============ AKTUALITY ============ */
+.legal .news-item {
+  border: var(--rule); background: var(--paper-hi); box-shadow: var(--hard-sm);
+  padding: clamp(20px, 2.4vw, 28px); margin-bottom: 30px;
+}
+.legal .news-date {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--vermilion);
+  margin-bottom: 9px;
+}
+.legal .news-item h2 { border-top: none; padding-top: 0; margin-bottom: 12px; font-size: 21px; }
+.legal .news-item p { margin: 0 0 12px; }
+.legal .news-sign {
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-3);
+  margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--paper-2);
+}
+
 /* ============ LEGAL / PROSE PAGES ============ */
 .legal { padding: 30px 0 80px; max-width: 800px; }
 .legal h1 { font-size: clamp(32px, 5vw, 50px); margin: 10px 0 8px; }

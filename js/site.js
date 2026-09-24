@@ -14,7 +14,8 @@ function buildNav() {
 
   bar.innerHTML =
     CATEGORIES.map((cat) => `<button class="cat-btn" data-cat="${cat.id}">${cat.label} <span class="car">▾</span></button>`).join("") +
-    `<a href="/products.html" class="cat-btn all-link">Všechny produkty</a>`;
+    `<a href="/products.html" class="cat-btn all-link">Všechny produkty</a>` +
+    `<a href="/aktuality.html" class="cat-btn">Aktuality</a>`;
 
   panelsHost.innerHTML = CATEGORIES.map(
     (cat) => `
