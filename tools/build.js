@@ -6,10 +6,12 @@
 //
 // Spuštění:  node tools/build.js
 
-const fs = require("fs");
-const path = require("path");
-const vm = require("vm");
+import fs from "node:fs";
+import path from "node:path";
+import vm from "node:vm";
+import { fileURLToPath } from "node:url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const OUT_DIR = path.join(ROOT, "produkt");
 const ORIGIN = "https://collectiversium.cz";
@@ -304,6 +306,39 @@ Disallow: /product.html
 Sitemap: ${ORIGIN}/sitemap.xml
 `;
 
+// --- serverový katalog ---------------------------------------------------
+
+// Co server potřebuje k ověření objednávky — nic víc. Popisy, fotky ani
+// fakta sem nepatří, jen to, podle čeho se počítá cena a dostupnost.
+//
+// Do katalogu jdou pouze produkty, které lze reálně koupit: aktivní
+// (ne draft) a s cenou. Tím je pokus objednat rozpracovanou položku
+// odbytý už na úrovni dat — validátor ji prostě nenajde.
+function isPurchasable(p) {
+  return !p.draft && p.price != null;
+}
+
+function renderServerCatalog(active) {
+  const purchasable = active.filter(isPurchasable);
+  const entries = {};
+  for (const p of purchasable) {
+    entries[p.id] = { name: p.name, price: p.price, stock: p.stock };
+  }
+
+  return `// GENEROVÁNO SKRIPTEM tools/build.js — NEEDITOVAT RUČNĚ.
+//
+// Serverová kopie katalogu pro ověřování objednávek. Zdroj pravdy je
+// js/data.js; tenhle soubor z něj vzniká při každém buildu.
+//
+// Existuje proto, že cenám poslaným z prohlížeče se nesmí věřit —
+// server si je vždycky dohledá tady. Viz server/order.js.
+
+export const GENERATED_AT = ${JSON.stringify(new Date().toISOString())};
+
+export const CATALOG = ${JSON.stringify(entries, null, 2)};
+`;
+}
+
 // --- main ----------------------------------------------------------------
 
 function main() {
@@ -326,9 +361,14 @@ function main() {
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"), renderSitemap(active, S), "utf8");
   fs.writeFileSync(path.join(ROOT, "robots.txt"), ROBOTS_TXT, "utf8");
 
+  fs.mkdirSync(path.join(ROOT, "server"), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, "server", "catalog.js"), renderServerCatalog(active), "utf8");
+  const purchasable = active.filter(isPurchasable).length;
+
   console.log(`produkt/      ${active.length} stránek (${indexable} v indexu, ${active.length - indexable} noindex, ${draftCount} draft vynecháno)`);
   console.log(`sitemap.xml   ${STATIC_PAGES.length + indexable} URL`);
   console.log(`robots.txt    OK`);
+  console.log(`server/catalog.js  ${purchasable} prodejných položek`);
 }
 
 main();
