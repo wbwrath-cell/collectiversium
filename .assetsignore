@@ -38,3 +38,9 @@ img/*.jpeg
 img/*.JPEG
 img/*.jpg
 img/*.JPG
+
+# Loga karet a 3D Secure MUSÍ zůstat veřejná — bez nich web nesplňuje
+# náležitosti prodejního místa. Pravidla výše se na ně sice nevztahují
+# (`img/*.png` platí jen na jednu úroveň), ale spoléhat se na to je
+# zbytečně křehké.
+!img/pay/

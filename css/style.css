@@ -741,6 +741,33 @@ footer .logo .ring-o::after { border-color: var(--vermilion); }
   padding: 0 clamp(16px, 3vw, 34px);
   margin-bottom: -0.16em;
 }
+/* ---- Loga karet a 3D Secure (povinná náležitost prodejního místa) ---- */
+.pay-strip {
+  border-top: 1px solid rgba(242,237,227,0.25);
+  margin-top: 26px; padding-top: 18px;
+  display: flex; align-items: center; gap: 16px 20px; flex-wrap: wrap;
+}
+.pay-label {
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(242,237,227,0.5);
+}
+.pay-logos { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+/* Bílá dlaždice: loga jsou průhledná s tmavou kresbou a patička je tmavá. */
+.pay-logos li {
+  background: #fff; border-radius: 4px;
+  height: 40px; padding: 0 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Výšky jsou dorovnané opticky, ne matematicky — VISA je úzký pruh,
+   Mastercard má pod značkou ještě nápis, takže potřebuje víc místa. */
+.pay-logos img { display: block; width: auto; }
+.pl-visa     { height: 15px; }
+.pl-electron { height: 24px; }
+.pl-mc       { height: 28px; }
+.pl-vbv      { height: 18px; }
+.pl-scode    { height: 17px; }
+
 .footer-bottom {
   border-top: 1px solid rgba(242,237,227,0.25);
   padding-top: 16px;
