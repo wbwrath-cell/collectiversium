@@ -269,6 +269,7 @@ const STATIC_PAGES = [
   ["/", "1.0", "daily"],
   ["/products.html", "0.9", "daily"],
   ["/aktuality.html", "0.6", "weekly"],
+  ["/kontakt.html", "0.5", "monthly"],
   ["/obchodni-podminky.html", "0.3", "yearly"],
   ["/reklamacni-rad.html", "0.3", "yearly"],
   ["/odstoupeni-od-smlouvy.html", "0.3", "yearly"],
