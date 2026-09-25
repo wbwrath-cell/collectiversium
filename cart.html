@@ -32,7 +32,7 @@
   function orderMailto(items) {
     const lines = items.map((it) => `${it.qty}x ${it.p.name} — ${formatPrice(it.p.price * it.qty)}`).join("\n");
     const body = `Dobrý den,\n\nrád/a bych objednal/a:\n\n${lines}\n\nDěkuji.`;
-    return "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Objednávka z košíku") + "&body=" + encodeURIComponent(body);
+    return "mailto:" + ORDER_EMAIL + "?subject=" + encodeURIComponent("Objednávka z košíku") + "&body=" + encodeURIComponent(body);
   }
 
   function renderCart() {

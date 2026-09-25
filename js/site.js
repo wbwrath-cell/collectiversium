@@ -70,10 +70,11 @@ function buildNav() {
 
 // Produkty bez Revolut odkazu nemají funkční pokladnu — místo slepého košíku
 // je posíláme na e-mail s předvyplněným předmětem.
-const CONTACT_EMAIL = "hello@collectiversium.cz";
+// Objednávky vyřizuje supply@, ne hello@ — viz /kontakt.html.
+const ORDER_EMAIL = "supply@collectiversium.cz";
 
 function contactMailto(p) {
-  return "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Objednávka: " + p.name);
+  return "mailto:" + ORDER_EMAIL + "?subject=" + encodeURIComponent("Objednávka: " + p.name);
 }
 
 function productUrl(p) {
