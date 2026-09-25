@@ -6,7 +6,7 @@
 // Existuje proto, že cenám poslaným z prohlížeče se nesmí věřit —
 // server si je vždycky dohledá tady. Viz server/order.js.
 
-export const GENERATED_AT = "2026-09-24T12:46:02.528Z";
+export const GENERATED_AT = "2026-09-25T10:05:44.987Z";
 
 export const CATALOG = {
   "kayou-naruto-platinum-hs-s01-box": {

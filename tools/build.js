@@ -219,6 +219,7 @@ ${jsonLd(breadcrumbSchema(p, S))}
       <span class="kicker">${esc(p.franchise)} / ${esc(p.type)}</span>
       <h1>${esc(p.name)}</h1>
       <div class="pdp-price">${esc(S.formatPrice(p.price))}</div>
+      <p class="pdp-vat">Konečná cena v CZK. Prodávající není plátcem DPH, cena je bez DPH a doprava je v ní zahrnuta.</p>
       <p class="pdp-desc">${esc(p.desc)}</p>
       <div class="pdp-row">${purchaseBlock(p, S)}</div>
       ${stockLine(p)}
