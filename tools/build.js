@@ -84,7 +84,9 @@ function productSchema(p, S) {
       priceCurrency: "CZK",
       price: p.price,
       itemCondition: "https://schema.org/NewCondition",
-      availability: p.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      // Neuvedené množství (stock: undefined) neznamená vyprodáno —
+      // jen se přesné číslo zatím netrackuje. Vyprodáno je jedině stock 0.
+      availability: p.stock === 0 ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
       seller: { "@type": "Organization", name: "Collectiversium" },
     };
   }
@@ -144,6 +146,9 @@ function mediaBlock(p, S) {
 
 function stockLine(p) {
   // Bez "Poslední N ks" urgence zatím — jen dostupné / nedostupné.
+  // Chybějící stock (undefined) = množství se zatím neřeší a nikde
+  // se neuvádí — žádný řádek se nevykreslí, ale skladem to je.
+  if (p.stock == null) return "";
   if (p.stock === 0) return `<div class="stock-line out">Momentálně nedostupné</div>`;
   return `<div class="stock-line">Skladem — ${p.stock} ks</div>`;
 }

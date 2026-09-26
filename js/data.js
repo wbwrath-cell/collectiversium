@@ -108,7 +108,7 @@ const PRODUCTS = [
     id: "kayou-spongebob-box",
     category: "karty", group: "Sběratelské karty", franchise: "SpongeBob", type: "Box",
     name: "KAYOU SpongeBob SquarePants — Fun Time, box",
-    price: 1499, compareAt: null, stock: 1,
+    price: 1499, compareAt: null, // stock záměrně neuveden — viz stockLine() v build.js
     image: "img/kayou-spongebob-box.webp",
     desc: "Uzavřený box sběratelských karet KAYOU SpongeBob Kalhoty Hranaté (SpongeBob SquarePants), edice Fun Time, oficiální licence Nickelodeon. Zapečetěné balení.",
     facts: { "Výrobce": "KAYOU", "Licence": "SpongeBob SquarePants (Nickelodeon)", "Edice": "Fun Time", "Stav": "Nový, zapečetěný box" },
@@ -169,7 +169,7 @@ const PRODUCTS = [
     id: "kayou-spongebob-pack",
     category: "karty", group: "Sběratelské karty", franchise: "SpongeBob", type: "Balíček",
     name: "KAYOU SpongeBob SquarePants — Fun Time, balíček",
-    price: 189, compareAt: null, stock: 1,
+    price: 189, compareAt: null, // stock záměrně neuveden — viz stockLine() v build.js
     image: "img/kayou-spongebob-pack.webp",
     desc: "Balíček sběratelských karet KAYOU SpongeBob Kalhoty Hranaté (SpongeBob SquarePants), edice Fun Time (妙趣时光收藏卡), oficiální licence Nickelodeon. Zapečetěné balení.",
     facts: { "Výrobce": "KAYOU", "Licence": "SpongeBob SquarePants (Nickelodeon)", "Edice": "Fun Time", "Stav": "Nový, zapečetěný" },
@@ -178,7 +178,7 @@ const PRODUCTS = [
     id: "stalker2-limitka-pack",
     category: "karty", group: "Sběratelské karty", franchise: "S.T.A.L.K.E.R. 2", type: "Balíček",
     name: "S.T.A.L.K.E.R. 2 — limitovaná série, balíček",
-    price: 229, compareAt: null, stock: 1,
+    price: 229, compareAt: null, // stock záměrně neuveden — viz stockLine() v build.js
     image: "img/stalker2-limitka-pack.webp",
     desc: "Balíček sběratelských karet S.T.A.L.K.E.R. 2, limitovaná série dovezená přímo z Ukrajiny. Balíček obsahuje 1 kartu ze sady 48.",
     facts: { "Edice": "Limitovaná série", "Původ": "Ukrajina", "Karet v balíčku": "1 ze sady 48", "Stav": "Nový, zapečetěný" },
