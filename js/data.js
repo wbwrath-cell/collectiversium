@@ -6,7 +6,7 @@ const CATEGORIES = [
     id: "karty",
     label: "Karty TCG & sběratelské karty",
     groups: [
-      { label: "Sběratelské karty", items: ["Naruto", "Demon Slayer", "Sakamoto Days", "Bleach", "My Little Pony"] },
+      { label: "Sběratelské karty", items: ["Naruto", "Demon Slayer", "Sakamoto Days", "Bleach", "My Little Pony", "SpongeBob", "S.T.A.L.K.E.R. 2"] },
     ],
   },
   {
@@ -27,6 +27,8 @@ const FRANCHISE_COLORS = {
   "Pokémon": ["#ffd400", "#14100e"],
   "Bleach": ["#c81d3f", "#fbf8f2"],
   "My Little Pony": ["#e91e8c", "#fbf8f2"],
+  "SpongeBob": ["#37c6e8", "#0d2b33"],
+  "S.T.A.L.K.E.R. 2": ["#c4d600", "#14100e"],
   "default": ["#e8e0d1", "#14100e"],
 };
 
@@ -102,6 +104,15 @@ const PRODUCTS = [
     desc: "Zapečetěný box sběratelských karet KAYOU Naruto 火影忍者, Series 07 (第七弹), edice 兵之章 (Soldier Chapter). Nikdy neotevřený.",
     facts: { "Výrobce": "KAYOU", "Série": "Series 07 (第七弹)", "Edice": "兵之章 (Soldier Chapter)", "Stav": "Nový, zapečetěný box" },
   },
+  {
+    id: "kayou-spongebob-box",
+    category: "karty", group: "Sběratelské karty", franchise: "SpongeBob", type: "Box",
+    name: "KAYOU SpongeBob SquarePants — Fun Time, box",
+    price: 1499, compareAt: null, stock: 1,
+    image: "img/kayou-spongebob-box.webp",
+    desc: "Uzavřený box sběratelských karet KAYOU SpongeBob Kalhoty Hranaté (SpongeBob SquarePants), edice Fun Time, oficiální licence Nickelodeon. Zapečetěné balení.",
+    facts: { "Výrobce": "KAYOU", "Licence": "SpongeBob SquarePants (Nickelodeon)", "Edice": "Fun Time", "Stav": "Nový, zapečetěný box" },
+  },
 
   // --- Karty / Sběratelské karty — balíčky ---
   {
@@ -153,6 +164,24 @@ const PRODUCTS = [
     price: null, compareAt: null, stock: 4, draft: true, // bez foto a ceny — zatím mimo nabídku
     desc: "Balíček KAYOU Naruto Smriti z edice Earth Scroll, Series 08. Obsahuje 8 karet.",
     facts: { "Výrobce": "KAYOU", "Edice": "Smriti — Earth Scroll", "Série": "Series 08", "Karet v balíčku": "8", "Stav": "Nový, zapečetěný" },
+  },
+  {
+    id: "kayou-spongebob-pack",
+    category: "karty", group: "Sběratelské karty", franchise: "SpongeBob", type: "Balíček",
+    name: "KAYOU SpongeBob SquarePants — Fun Time, balíček",
+    price: 189, compareAt: null, stock: 1,
+    image: "img/kayou-spongebob-pack.webp",
+    desc: "Balíček sběratelských karet KAYOU SpongeBob Kalhoty Hranaté (SpongeBob SquarePants), edice Fun Time (妙趣时光收藏卡), oficiální licence Nickelodeon. Zapečetěné balení.",
+    facts: { "Výrobce": "KAYOU", "Licence": "SpongeBob SquarePants (Nickelodeon)", "Edice": "Fun Time", "Stav": "Nový, zapečetěný" },
+  },
+  {
+    id: "stalker2-limitka-pack",
+    category: "karty", group: "Sběratelské karty", franchise: "S.T.A.L.K.E.R. 2", type: "Balíček",
+    name: "S.T.A.L.K.E.R. 2 — limitovaná série, balíček",
+    price: 229, compareAt: null, stock: 1,
+    image: "img/stalker2-limitka-pack.webp",
+    desc: "Balíček sběratelských karet S.T.A.L.K.E.R. 2, limitovaná série dovezená přímo z Ukrajiny. Balíček obsahuje 1 kartu ze sady 48.",
+    facts: { "Edice": "Limitovaná série", "Původ": "Ukrajina", "Karet v balíčku": "1 ze sady 48", "Stav": "Nový, zapečetěný" },
   },
 
   // --- Figurky & sběratelské předměty / Figurky a piny ---

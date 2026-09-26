@@ -6,7 +6,7 @@
 // Existuje proto, že cenám poslaným z prohlížeče se nesmí věřit —
 // server si je vždycky dohledá tady. Viz server/order.js.
 
-export const GENERATED_AT = "2026-09-25T15:58:02.981Z";
+export const GENERATED_AT = "2026-09-26T19:42:10.193Z";
 
 export const CATALOG = {
   "kayou-naruto-platinum-hs-s01-box": {
@@ -44,10 +44,25 @@ export const CATALOG = {
     "price": 1099,
     "stock": 1
   },
+  "kayou-spongebob-box": {
+    "name": "KAYOU SpongeBob SquarePants — Fun Time, box",
+    "price": 1499,
+    "stock": 1
+  },
   "kayou-naruto-heavenscroll-s07-pack": {
     "name": "KAYOU Naruto 火影忍者 — Series 07, 兵之章",
     "price": 139,
     "stock": 4
+  },
+  "kayou-spongebob-pack": {
+    "name": "KAYOU SpongeBob SquarePants — Fun Time, balíček",
+    "price": 189,
+    "stock": 1
+  },
+  "stalker2-limitka-pack": {
+    "name": "S.T.A.L.K.E.R. 2 — limitovaná série, balíček",
+    "price": 229,
+    "stock": 1
   },
   "naruto-shippuden-minifig-8pack": {
     "name": "Naruto Shippuden — Mini Figures, 8 pack",
