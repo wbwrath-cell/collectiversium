@@ -31,7 +31,7 @@ function loadSiteScripts() {
     fs.readFileSync(path.join(ROOT, "js", "data.js"), "utf8") +
     "\n" +
     fs.readFileSync(path.join(ROOT, "js", "site.js"), "utf8") +
-    "\nexported = { PRODUCTS, CATEGORIES, categoryLabel, formatPrice, franchiseStyle, cardHTML, contactMailto, productUrl, activeProducts };";
+    "\nexported = { PRODUCTS, CATEGORIES, categoryLabel, formatPrice, franchiseStyle, cardHTML, orderUrl, productUrl, activeProducts };";
   vm.runInContext(src, ctx);
   return ctx.exported;
 }
@@ -115,12 +115,13 @@ function breadcrumbSchema(p, S) {
 // --- tělo stránky --------------------------------------------------------
 
 function purchaseBlock(p, S) {
+  // Dočasný objednávkový formulář — dokud neběží platební brána. Umí víc
+  // položek najednou, proto je i vedle Revolut odkazu (ten koupí jen jednu věc).
+  const order = `<a class="btn${p.buyLink ? " secondary" : ""}" href="${esc(S.orderUrl(p))}">Chci objednat</a>`;
   if (p.buyLink) {
-    return `<a class="btn" href="${esc(p.buyLink)}" target="_blank" rel="noopener">Koupit</a>`;
+    return `<a class="btn" href="${esc(p.buyLink)}" target="_blank" rel="noopener">Koupit</a>${order}`;
   }
-  // Bez platebního odkazu nemáme funkční pokladnu — posíláme na e-mail,
-  // ať zákazník neskončí ve slepém košíku.
-  return `<a class="btn" href="${esc(S.contactMailto(p))}">Napsat pro objednávku</a>`;
+  return order;
 }
 
 function mediaBlock(p, S) {

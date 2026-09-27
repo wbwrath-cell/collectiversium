@@ -68,17 +68,17 @@ function buildNav() {
   });
 }
 
-// Produkty bez Revolut odkazu nemají funkční pokladnu — místo slepého košíku
-// je posíláme na e-mail s předvyplněným předmětem.
 // Objednávky vyřizuje supply@, ne hello@ — viz /kontakt.html.
 const ORDER_EMAIL = "supply@collectiversium.cz";
 
-function contactMailto(p) {
-  return "mailto:" + ORDER_EMAIL + "?subject=" + encodeURIComponent("Objednávka: " + p.name);
-}
-
 function productUrl(p) {
   return "/produkt/" + p.id + ".html";
+}
+
+// Dočasný objednávkový formulář (/objednavka.html), než projde platební brána.
+// Produkt z URL se ve formuláři rovnou předvybere.
+function orderUrl(p) {
+  return "/objednavka.html?id=" + encodeURIComponent(p.id);
 }
 
 function cardHTML(p) {
@@ -93,7 +93,7 @@ function cardHTML(p) {
     : "";
   const addBtn = p.buyLink
     ? `<button class="card-add" onclick="event.preventDefault();window.open('${p.buyLink}','_blank');" aria-label="Koupit">+</button>`
-    : `<button class="card-add" ${soldOut ? "disabled" : ""} onclick="event.preventDefault();window.location.href='${contactMailto(p)}';" aria-label="Napsat pro objednávku">✉</button>`;
+    : `<button class="card-add" ${soldOut ? "disabled" : ""} onclick="event.preventDefault();window.location.href='${orderUrl(p)}';" aria-label="Chci objednat">+</button>`;
   const media = p.image
     ? `<img src="/${p.image}" alt="${p.name}" loading="lazy" />`
     : `<span class="card-media-label">${p.name}</span>`;

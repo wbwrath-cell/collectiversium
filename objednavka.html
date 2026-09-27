@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Objednat a poslat domů – Collectiversium</title>
+<!-- Formulář nemá co dělat ve výsledcích vyhledávání. -->
+<meta name="robots" content="noindex, follow" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header id="site-header" class="site"></header>
+
+<section class="container legal order-page">
+  <nav class="crumbs"><a href="/">Domů</a> / Objednávka</nav>
+
+  <form id="order-form" novalidate>
+    <h1>Objednat a poslat domů</h1>
+
+    <p class="order-notice" id="order-missing" hidden>Tahle položka mezitím zmizela z nabídky. Mrzí nás to.</p>
+
+    <!-- Honeypot proti robotům: člověk ho nevidí ani nevyplní. -->
+    <div class="order-hp" aria-hidden="true">
+      <label for="of-web">Web</label>
+      <input id="of-web" name="web" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="form-box order-section">
+      <h2>Co vám pošleme</h2>
+      <ul class="order-items" id="order-items"></ul>
+      <div class="order-total"><span>Celkem</span><span id="order-total">0 Kč</span></div>
+      <p class="field-error" id="err-items" hidden></p>
+    </div>
+
+    <div class="form-box order-section">
+      <h2>Na koho to bude</h2>
+      <div class="field">
+        <label for="of-name">Jméno a příjmení</label>
+        <input class="wd-input" id="of-name" type="text" autocomplete="name" aria-describedby="err-name" />
+        <p class="field-error" id="err-name" hidden>Napište prosím jméno a příjmení</p>
+      </div>
+      <div class="field">
+        <label for="of-email">E-mail</label>
+        <input class="wd-input" id="of-email" type="email" autocomplete="email" inputmode="email" aria-describedby="err-email" />
+        <p class="field-error" id="err-email" hidden>V e-mailu je asi překlep</p>
+      </div>
+      <div class="field">
+        <label for="of-phone">Telefon</label>
+        <input class="wd-input" id="of-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+420 777 123 456" aria-describedby="err-phone" />
+        <p class="field-error" id="err-phone" hidden>Tohle číslo nevypadá úplně správně – třeba +420 777 123 456</p>
+      </div>
+    </div>
+
+    <div class="form-box order-section">
+      <h2>Kam to poslat</h2>
+      <div class="order-delivery" role="radiogroup" aria-describedby="err-delivery">
+        <label class="order-option">
+          <input type="radio" name="delivery" value="zbox" />
+          <span><b>Do Z-BOXu</b> Vyzvednete si v automatu Zásilkovny, kdy se vám to hodí</span>
+        </label>
+        <label class="order-option">
+          <input type="radio" name="delivery" value="home" />
+          <span><b>Domů na adresu</b> Přiveze vám to kurýr</span>
+        </label>
+      </div>
+      <p class="field-error" id="err-delivery" hidden>Kam vám to máme poslat?</p>
+
+      <div class="order-panel" id="panel-zbox" hidden>
+        <div class="field">
+          <label for="of-zbox">Který Z-BOX</label>
+          <input class="wd-input" id="of-zbox" type="text" placeholder="Např. Kadaň, Chomutovská" aria-describedby="err-zbox help-zbox" />
+          <p class="field-help" id="help-zbox">Nevíte, kde je nejbližší? Najdete ho na <a class="inline-link" href="https://www.zasilkovna.cz/pobocky" target="_blank" rel="noopener">webu Zásilkovny</a>.</p>
+          <p class="field-error" id="err-zbox" hidden>Vyberte Z-BOX, kam vám balík pošleme</p>
+        </div>
+      </div>
+
+      <fieldset class="order-panel" id="panel-home" hidden>
+        <legend>Kam přijede kurýr</legend>
+        <div class="field">
+          <label for="of-street">Ulice a číslo domu</label>
+          <input class="wd-input" id="of-street" type="text" autocomplete="street-address" aria-describedby="err-street" />
+          <p class="field-error" id="err-street" hidden>Chybí ulice a číslo domu</p>
+        </div>
+        <div class="order-row">
+          <div class="field">
+            <label for="of-city">Město</label>
+            <input class="wd-input" id="of-city" type="text" autocomplete="address-level2" aria-describedby="err-city" />
+            <p class="field-error" id="err-city" hidden>Chybí město</p>
+          </div>
+          <div class="field">
+            <label for="of-zip">PSČ</label>
+            <input class="wd-input" id="of-zip" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="432 01" aria-describedby="err-zip" />
+            <p class="field-error" id="err-zip" hidden>PSČ má pět číslic, třeba 432 01</p>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="form-box order-section">
+      <div class="field">
+        <label for="of-note">Chcete nám něco vzkázat? (nepovinné)</label>
+        <textarea class="wd-input" id="of-note" rows="4" aria-describedby="err-note"></textarea>
+        <p class="field-error" id="err-note" hidden>Poznámka se vejde do 500 znaků – zbytek nám klidně napište e-mailem</p>
+      </div>
+
+      <label class="order-consent">
+        <input type="checkbox" id="of-consent" aria-describedby="err-consent" />
+        <span>Souhlasím, že moje údaje použijete jen k vyřízení objednávky (víc v <a class="inline-link" href="/ochrana-osobnich-udaju.html" target="_blank" rel="noopener">zásadách ochrany osobních údajů</a>).</span>
+      </label>
+      <p class="field-error" id="err-consent" hidden>Ještě prosím zaškrtněte souhlas, jinak objednávku nemůžeme vyřídit</p>
+
+      <p class="wd-error" id="err-form" role="alert" hidden></p>
+      <button class="btn" type="submit" id="of-submit">Objednat</button>
+      <p class="order-after">Hned potom vám přijde e-mail se shrnutím. Platit zatím nic nemusíte.</p>
+    </div>
+  </form>
+
+  <div class="order-thanks" id="order-thanks" hidden>
+    <h1>Díky, máme to!</h1>
+    <p class="order-number">Vaše objednávka má číslo <strong id="thanks-number"></strong></p>
+    <p>Do pár minut vám přijde e-mail se shrnutím. Kdyby nedorazil, mrkněte do spamu nebo do záložky Hromadné.</p>
+    <p>Teď si objednávku projdu, zkontroluji, že je všechno skladem, a ozvu se vám s dalšími kroky.</p>
+    <p class="news-sign">Vít z Collectiversium</p>
+    <a class="btn" href="/products.html">Zpátky do obchodu</a>
+  </div>
+</section>
+
+<footer id="site-footer" class="site"></footer>
+
+<script src="/js/data.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/site.js"></script>
+<script src="/js/order-form.js"></script>
+
+</body>
+</html>

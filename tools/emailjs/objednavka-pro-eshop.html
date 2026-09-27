@@ -1,0 +1,17 @@
+<div style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.5; color: #14100e; max-width: 640px;">
+  <p style="margin: 0 0 6px;"><strong>Přišla nová objednávka {{order_number}} přes formulář u produktu.</strong></p>
+  <p style="margin: 0 0 18px; color: #6d635a;">Když na tenhle e-mail odpovíš, odpověď půjde rovnou zákazníkovi.</p>
+
+  <table cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; font-size: 14px;">
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3; width: 150px;"><strong>Objednávka</strong></td><td style="border: 1px solid #d8cfbf;">{{order_number}}</td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>Zboží</strong></td><td style="border: 1px solid #d8cfbf; white-space: pre-line;">{{items_with_ids}}</td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>Celkem</strong></td><td style="border: 1px solid #d8cfbf;"><strong>{{total}}</strong></td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>Jméno</strong></td><td style="border: 1px solid #d8cfbf;">{{customer_name}}</td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>E-mail</strong></td><td style="border: 1px solid #d8cfbf;">{{customer_email}}</td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>Telefon</strong></td><td style="border: 1px solid #d8cfbf;">{{customer_phone}}</td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>Doručení</strong></td><td style="border: 1px solid #d8cfbf;">{{delivery_method}}<br>{{delivery_detail}}</td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>Poznámka</strong></td><td style="border: 1px solid #d8cfbf; white-space: pre-line;">{{note}}</td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>Souhlas s OÚ</strong></td><td style="border: 1px solid #d8cfbf;">{{consent_at}}</td></tr>
+    <tr><td style="border: 1px solid #d8cfbf; background: #f2ede3;"><strong>Odesláno</strong></td><td style="border: 1px solid #d8cfbf;">{{created_at}}</td></tr>
+  </table>
+</div>
