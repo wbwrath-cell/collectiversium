@@ -5,12 +5,15 @@ Dočasné řešení, než projde platební brána. Formulář `/objednavka.html`
 v EmailJS zakládají ručně (Email Templates → Create New Template), obsah se
 vkládá přes **Edit Content → Code Editor**.
 
+V EmailJS je připojená schránka **hello@** — z ní oba e-maily odcházejí a na ni
+chodí i objednávky. Na supply@ se přeposílají ručně (rozhodnutí Víta, 29. 9. 2026).
+
 ## 1. Objednávka pro e-shop — `objednavka-pro-eshop.html`
 
 | Pole v EmailJS | Hodnota |
 |---|---|
 | Subject | `Nová objednávka {{order_number}}` |
-| To Email | `supply@collectiversium.cz` |
+| To Email | `hello@collectiversium.cz` |
 | From Name | `Collectiversium – formulář` |
 | Reply To | `{{customer_email}}` |
 
@@ -21,7 +24,7 @@ vkládá přes **Edit Content → Code Editor**.
 | Subject | `Máme vaši objednávku {{order_number}}` |
 | To Email | `{{customer_email}}` |
 | From Name | `Collectiversium` |
-| Reply To | `supply@collectiversium.cz` |
+| Reply To | `hello@collectiversium.cz` |
 
 ## Proměnné
 

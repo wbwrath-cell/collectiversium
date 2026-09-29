@@ -2,8 +2,8 @@
 // platební brána.
 //
 // Objednávka se nikam neukládá: odejdou dva e-maily přes EmailJS
-// (https://www.emailjs.com) — jeden na supply@ s celou objednávkou, druhý
-// zákazníkovi se shrnutím. Platbu pak posíláme ručně jako individuální odkaz.
+// (https://www.emailjs.com) ze schránky hello@ — jeden na hello@ s celou
+// objednávkou (odtud ji přepošleme na supply@), druhý zákazníkovi se shrnutím. Platbu pak posíláme ručně jako individuální odkaz.
 //
 // Šablony obou e-mailů jsou v tools/emailjs/ — v EmailJS se vkládají ručně.
 
