@@ -11,10 +11,10 @@
 const EMAILJS = {
   // Veřejný klíč a ID nejsou tajemství — EmailJS je navržený tak, že
   // žijí přímo v kódu stránky. (Account → General, Email Services, Email Templates)
-  publicKey: "",
-  serviceId: "",
-  shopTemplateId: "",
-  customerTemplateId: "",
+  publicKey: "op-xm5FypNOD9oUBP",
+  serviceId: "service_mj0l0s9",
+  shopTemplateId: "template_y4wx2n7", // objednávka pro nás (na hello@)
+  customerTemplateId: "template_zppmom7", // potvrzení zákazníkovi
 };
 const EMAILJS_URL = "https://api.emailjs.com/api/v1.0/email/send";
 
