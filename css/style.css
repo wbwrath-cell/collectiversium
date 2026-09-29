@@ -1021,12 +1021,6 @@ textarea.wd-input { resize: vertical; min-height: 96px; }
 .order-option span { font-size: 13.5px; color: var(--ink-2); line-height: 1.4; }
 .order-option b { display: block; font-size: 14.5px; color: var(--ink); margin-bottom: 2px; }
 .order-panel { margin-top: 18px; }
-fieldset.order-panel { border: none; padding: 0; margin-inline: 0; }
-fieldset.order-panel legend {
-  font-family: var(--font-mono); font-size: 11.5px; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--vermilion); margin-bottom: 10px;
-}
-.order-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
 
 .order-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--ink-2); cursor: pointer; margin-top: 4px; }
 .order-consent input { margin-top: 3px; accent-color: var(--vermilion); }
@@ -1041,7 +1035,7 @@ fieldset.order-panel legend {
 .order-thanks .btn { margin-top: 10px; }
 
 @media (max-width: 560px) {
-  .order-delivery, .order-row { grid-template-columns: 1fr; }
+  .order-delivery { grid-template-columns: 1fr; }
   .legal .order-item { grid-template-columns: 48px 1fr; }
   .order-thumb { width: 48px; height: 48px; }
   .order-item .qty-box { grid-column: 2; justify-self: start; }

@@ -60,41 +60,21 @@
           <span><b>Do Z-BOXu</b> Vyzvednete si v automatu Zásilkovny, kdy se vám to hodí</span>
         </label>
         <label class="order-option">
-          <input type="radio" name="delivery" value="home" />
-          <span><b>Domů na adresu</b> Přiveze vám to kurýr</span>
+          <input type="radio" name="delivery" value="point" />
+          <span><b>Na výdejní místo</b> Vyzvednete si na pobočce Zásilkovny</span>
         </label>
       </div>
       <p class="field-error" id="err-delivery" hidden>Kam vám to máme poslat?</p>
 
-      <div class="order-panel" id="panel-zbox" hidden>
+      <!-- Jedno pole pro Z-BOX i výdejní místo — popisek a hlášku přepíná order-form.js. -->
+      <div class="order-panel" id="panel-point" hidden>
         <div class="field">
-          <label for="of-zbox">Který Z-BOX</label>
-          <input class="wd-input" id="of-zbox" type="text" placeholder="Např. Kadaň, Chomutovská" aria-describedby="err-zbox help-zbox" />
-          <p class="field-help" id="help-zbox">Nevíte, kde je nejbližší? Najdete ho na <a class="inline-link" href="https://www.zasilkovna.cz/pobocky" target="_blank" rel="noopener">webu Zásilkovny</a>.</p>
-          <p class="field-error" id="err-zbox" hidden>Vyberte Z-BOX, kam vám balík pošleme</p>
+          <label for="of-point" id="label-point">Který Z-BOX</label>
+          <input class="wd-input" id="of-point" type="text" placeholder="Např. Kadaň, Chomutovská" aria-describedby="err-point help-point" />
+          <p class="field-help" id="help-point">Nevíte, kde je nejbližší? Najdete ho na <a class="inline-link" href="https://www.zasilkovna.cz/pobocky" target="_blank" rel="noopener">webu Zásilkovny</a>.</p>
+          <p class="field-error" id="err-point" hidden>Vyberte Z-BOX, kam vám balík pošleme</p>
         </div>
       </div>
-
-      <fieldset class="order-panel" id="panel-home" hidden>
-        <legend>Kam přijede kurýr</legend>
-        <div class="field">
-          <label for="of-street">Ulice a číslo domu</label>
-          <input class="wd-input" id="of-street" type="text" autocomplete="street-address" aria-describedby="err-street" />
-          <p class="field-error" id="err-street" hidden>Chybí ulice a číslo domu</p>
-        </div>
-        <div class="order-row">
-          <div class="field">
-            <label for="of-city">Město</label>
-            <input class="wd-input" id="of-city" type="text" autocomplete="address-level2" aria-describedby="err-city" />
-            <p class="field-error" id="err-city" hidden>Chybí město</p>
-          </div>
-          <div class="field">
-            <label for="of-zip">PSČ</label>
-            <input class="wd-input" id="of-zip" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="432 01" aria-describedby="err-zip" />
-            <p class="field-error" id="err-zip" hidden>PSČ má pět číslic, třeba 432 01</p>
-          </div>
-        </div>
-      </fieldset>
     </div>
 
     <div class="form-box order-section">

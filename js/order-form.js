@@ -171,6 +171,13 @@ function deliveryMethod() {
   return document.querySelector('input[name="delivery"]:checked')?.value || "";
 }
 
+// Doručujeme jen přes Zásilkovnu — do Z-BOXu, nebo na výdejní místo
+// (viz čl. 4 obchodních podmínek). Obojí se vybírá stejným polem.
+const DELIVERY = {
+  zbox: { method: "Do Z-BOXu", label: "Který Z-BOX", error: "Vyberte Z-BOX, kam vám balík pošleme" },
+  point: { method: "Na výdejní místo", label: "Které výdejní místo", error: "Vyberte výdejní místo, kam vám balík pošleme" },
+};
+
 function validateItems() {
   const items = selectedItems();
   const tooMany = orderableProducts().some((p) => qty[p.id] > MAX_QTY);
@@ -189,10 +196,7 @@ const FIELD_RULES = {
   "of-name": ["err-name", () => /\S+\s+\S+/.test(val("of-name"))],
   "of-email": ["err-email", () => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("of-email"))],
   "of-phone": ["err-phone", () => /^(\+|00)?(42[01])?\d{9}$/.test(val("of-phone").replace(/[\s\-().]/g, ""))],
-  "of-zbox": ["err-zbox", () => deliveryMethod() !== "zbox" || val("of-zbox").length >= 3],
-  "of-street": ["err-street", () => deliveryMethod() !== "home" || (val("of-street").length >= 3 && /\d/.test(val("of-street")))],
-  "of-city": ["err-city", () => deliveryMethod() !== "home" || val("of-city").length >= 2],
-  "of-zip": ["err-zip", () => deliveryMethod() !== "home" || /^\d{3}\s?\d{2}$/.test(val("of-zip"))],
+  "of-point": ["err-point", () => !deliveryMethod() || val("of-point").length >= 3],
   "of-note": ["err-note", () => $("of-note").value.length <= NOTE_MAX],
 };
 
@@ -238,18 +242,20 @@ function focusFirstError() {
 // ---------------------------------------------------------------------------
 
 function onDeliveryChange() {
-  const m = deliveryMethod();
-  $("panel-zbox").hidden = m !== "zbox";
-  $("panel-home").hidden = m !== "home";
+  const d = DELIVERY[deliveryMethod()];
+  $("panel-point").hidden = !d;
+  if (d) {
+    $("label-point").textContent = d.label;
+    $("err-point").textContent = d.error;
+  }
   if (submittedOnce) {
     validateDelivery();
-    ["of-zbox", "of-street", "of-city", "of-zip"].forEach(validateField);
+    validateField("of-point");
   }
 }
 
 function deliveryText() {
-  if (deliveryMethod() === "zbox") return { method: "Do Z-BOXu", detail: val("of-zbox") };
-  return { method: "Domů na adresu", detail: `${val("of-street")}, ${val("of-zip")} ${val("of-city")}` };
+  return { method: DELIVERY[deliveryMethod()].method, detail: val("of-point") };
 }
 
 // ---------------------------------------------------------------------------
