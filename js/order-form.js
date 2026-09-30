@@ -415,7 +415,7 @@ let consentAt = null;
 function init() {
   renderItems();
 
-  // Předvybraná položka z tlačítka "Chci objednat" u produktu.
+  // Předvybraná položka z tlačítka "Objednat" u produktu.
   const wanted = new URLSearchParams(location.search).get("id");
   if (wanted) {
     if (qty[wanted] !== undefined) {

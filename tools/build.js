@@ -115,13 +115,8 @@ function breadcrumbSchema(p, S) {
 // --- tělo stránky --------------------------------------------------------
 
 function purchaseBlock(p, S) {
-  // Dočasný objednávkový formulář — dokud neběží platební brána. Umí víc
-  // položek najednou, proto je i vedle Revolut odkazu (ten koupí jen jednu věc).
-  const order = `<a class="btn${p.buyLink ? " secondary" : ""}" href="${esc(S.orderUrl(p))}">Chci objednat</a>`;
-  if (p.buyLink) {
-    return `<a class="btn" href="${esc(p.buyLink)}" target="_blank" rel="noopener">Koupit</a>${order}`;
-  }
-  return order;
+  // Dočasný objednávkový formulář — dokud neběží platební brána.
+  return `<a class="btn" href="${esc(S.orderUrl(p))}">Objednat</a>`;
 }
 
 function mediaBlock(p, S) {

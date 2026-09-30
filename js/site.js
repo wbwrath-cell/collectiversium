@@ -83,17 +83,14 @@ function orderUrl(p) {
 
 function cardHTML(p) {
   const soldOut = p.stock === 0;
-  const noPrice = p.price == null && !p.buyLink;
-  const unavailable = soldOut || noPrice;
+  const noPrice = p.price == null;
   // Bez "Poslední N ks" urgence zatím — jen vyprodáno / cena na dotaz.
   const stamp = soldOut
     ? '<span class="card-stamp out">Vyprodáno</span>'
     : noPrice
     ? '<span class="card-stamp">Cena na dotaz</span>'
     : "";
-  const addBtn = p.buyLink
-    ? `<button class="card-add" onclick="event.preventDefault();window.open('${p.buyLink}','_blank');" aria-label="Koupit">+</button>`
-    : `<button class="card-add" ${soldOut ? "disabled" : ""} onclick="event.preventDefault();window.location.href='${orderUrl(p)}';" aria-label="Chci objednat">+</button>`;
+  const addBtn = `<button class="card-add" ${soldOut ? "disabled" : ""} onclick="event.preventDefault();window.location.href='${orderUrl(p)}';" aria-label="Objednat">+</button>`;
   const media = p.image
     ? `<img src="/${p.image}" alt="${p.name}" loading="lazy" />`
     : `<span class="card-media-label">${p.name}</span>`;
