@@ -6,17 +6,12 @@
 // Existuje proto, že cenám poslaným z prohlížeče se nesmí věřit —
 // server si je vždycky dohledá tady. Viz server/order.js.
 
-export const GENERATED_AT = "2026-09-30T16:32:14.961Z";
+export const GENERATED_AT = "2026-10-02T18:21:10.516Z";
 
 export const CATALOG = {
   "kayou-naruto-platinum-hs-s01-box": {
     "name": "KAYOU Naruto — Platinum, Heaven Scroll Series 01",
     "price": 169,
-    "stock": 1
-  },
-  "kayou-demonslayer-box": {
-    "name": "KAYOU Demon Slayer — 无限城篇, Series 01",
-    "price": 1399,
     "stock": 1
   },
   "sakamoto-days-box": {

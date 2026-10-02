@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Collectiversium – sběratelské karty KAYOU, anime figurky a plyšáci</title>
-<meta name="description" content="Sběratelské karty KAYOU (Naruto, Demon Slayer, Sakamoto Days, Bleach, My Little Pony), anime figurky a Pokémon plyšáci. Originální zapečetěné zboží od ověřených dodavatelů, odesíláme do 24 hodin." />
+<meta name="description" content="Sběratelské karty KAYOU (Naruto, Sakamoto Days, Bleach, My Little Pony), anime figurky a Pokémon plyšáci. Originální zapečetěné zboží od ověřených dodavatelů, odesíláme do 24 hodin." />
 <link rel="canonical" href="https://collectiversium.cz/" />
 <meta name="robots" content="index, follow" />
 
@@ -54,7 +54,7 @@
         &amp; <span class="redline">Figurky</span>
       </h1>
       <p class="lede">
-        Sběratelské karty KAYOU (Naruto, Demon Slayer, Sakamoto Days), anime
+        Sběratelské karty KAYOU (Naruto, Sakamoto Days), anime
         figurky a plyšáci. Zapečetěné, originální, od ověřených dodavatelů.
       </p>
       <div class="hero-actions">
@@ -140,7 +140,7 @@
 <script src="/js/site.js"></script>
 <script>
   const TILE_DESC = {
-    "karty": "KAYOU Naruto, Demon Slayer a Sakamoto Days — uzavřené boxy i jednotlivé balíčky.",
+    "karty": "KAYOU Naruto a Sakamoto Days — uzavřené boxy i jednotlivé balíčky.",
     "figurky": "Naruto Shippuden mini figurky, Funko piny a Pokémon plyšáci s kartou.",
   };
 
@@ -158,7 +158,7 @@
   }).join("");
 
   const featured = [
-    "kayou-naruto-platinum-hs-s01-box", "kayou-demonslayer-box", "sakamoto-days-box",
+    "kayou-naruto-platinum-hs-s01-box", "stalker2-limitka-pack", "sakamoto-days-box",
     "kayou-naruto-heavenscroll-s07-pack", "naruto-shippuden-minifig-8pack",
     "funko-pin-kawaki", "kayou-naruto-s07-bingzhi-box", "mlp-twilight-sparkle-box",
   ];
@@ -168,7 +168,7 @@
     .map(cardHTML)
     .join("");
 
-  const plate = ["kayou-naruto-platinum-hs-s01-box", "kayou-demonslayer-box", "bleach-box"]
+  const plate = ["kayou-naruto-platinum-hs-s01-box", "kayou-spongebob-box", "bleach-box"]
     .map((id) => getProduct(id))
     .filter(Boolean);
   document.getElementById("plate-grid").innerHTML = plate

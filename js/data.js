@@ -6,7 +6,7 @@ const CATEGORIES = [
     id: "karty",
     label: "Karty TCG & sběratelské karty",
     groups: [
-      { label: "Sběratelské karty", items: ["Naruto", "Demon Slayer", "Sakamoto Days", "Bleach", "My Little Pony", "SpongeBob", "S.T.A.L.K.E.R. 2"] },
+      { label: "Sběratelské karty", items: ["Naruto", "Sakamoto Days", "Bleach", "My Little Pony", "SpongeBob", "S.T.A.L.K.E.R. 2"] },
     ],
   },
   {
@@ -47,7 +47,7 @@ const PRODUCTS = [
     id: "kayou-demonslayer-box",
     category: "karty", group: "Sběratelské karty", franchise: "Demon Slayer", type: "Box",
     name: "KAYOU Demon Slayer — 无限城篇, Series 01",
-    price: 1399, compareAt: null, stock: 1,
+    price: 1399, compareAt: null, stock: 1, draft: true, // už není skladem (2. 10. 2026) — mimo nabídku
     image: "img/kayou-demonslayer-box.webp",
     desc: "Uzavřený box sběratelských karet KAYOU z licence Demon Slayer / Kimetsu no Yaiba (鬼灭之刃), edice 无限城篇 (Infinity Castle Chapter), Series 01. Zapečetěné balení.",
     facts: { "Výrobce": "KAYOU", "Licence": "Demon Slayer (鬼灭之刃)", "Edice": "无限城篇 (Infinity Castle Chapter)", "Série": "Series 01", "Stav": "Nový, zapečetěný box" },
