@@ -4,7 +4,7 @@
 // HTML stránku na produkt (/produkt/<id>.html) s vyplněnými meta tagy, OG tagy
 // a JSON-LD, aby Google i sociální sítě viděly obsah bez spouštění JS.
 //
-// Spuštění:  node tools/build.js
+// Spuštění:  node tools/build.js   (výstup jde do public/, katalog do server/)
 
 import fs from "node:fs";
 import path from "node:path";
@@ -13,7 +13,9 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
-const OUT_DIR = path.join(ROOT, "produkt");
+// Veřejný web. Co není v public/, to se nepublikuje (viz wrangler.jsonc).
+const PUBLIC = path.join(ROOT, "public");
+const OUT_DIR = path.join(PUBLIC, "produkt");
 const ORIGIN = "https://collectiversium.cz";
 
 // --- načtení data.js + site.js do izolovaného kontextu ---------------------
@@ -28,9 +30,9 @@ function loadSiteScripts() {
   };
   vm.createContext(ctx);
   const src =
-    fs.readFileSync(path.join(ROOT, "js", "data.js"), "utf8") +
+    fs.readFileSync(path.join(PUBLIC, "js", "data.js"), "utf8") +
     "\n" +
-    fs.readFileSync(path.join(ROOT, "js", "site.js"), "utf8") +
+    fs.readFileSync(path.join(PUBLIC, "js", "site.js"), "utf8") +
     "\nexported = { PRODUCTS, CATEGORIES, categoryLabel, formatPrice, franchiseStyle, cardHTML, orderUrl, productUrl, activeProducts };";
   vm.runInContext(src, ctx);
   return ctx.exported;
@@ -362,8 +364,8 @@ function main() {
     if (isIndexable(p)) indexable++;
   }
 
-  fs.writeFileSync(path.join(ROOT, "sitemap.xml"), renderSitemap(active, S), "utf8");
-  fs.writeFileSync(path.join(ROOT, "robots.txt"), ROBOTS_TXT, "utf8");
+  fs.writeFileSync(path.join(PUBLIC, "sitemap.xml"), renderSitemap(active, S), "utf8");
+  fs.writeFileSync(path.join(PUBLIC, "robots.txt"), ROBOTS_TXT, "utf8");
 
   fs.mkdirSync(path.join(ROOT, "server"), { recursive: true });
   fs.writeFileSync(path.join(ROOT, "server", "catalog.js"), renderServerCatalog(active), "utf8");

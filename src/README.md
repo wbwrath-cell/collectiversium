@@ -1,8 +1,12 @@
 # Serverová část (Cloudflare Worker)
 
-`worker.js` je jediný vstupní bod. Spouští se **pouze pro `/api/*`** — to zařizuje
-`run_worker_first` ve `wrangler.jsonc`. Všechno ostatní servíruje Cloudflare přímo
-ze statických souborů, bez spuštění tohohle kódu.
+`worker.js` je jediný vstupní bod. Spouští se **pouze pro `/api/*` a kořen `/`** — to
+zařizuje `run_worker_first` ve `wrangler.jsonc`. Všechno ostatní servíruje Cloudflare
+přímo ze statických souborů v `public/`, bez spuštění tohohle kódu.
+
+Kořen `/` jde přes Worker kvůli `html_handling: "none"`: adresy zůstávají s `.html`
+(sitemap, canonical a Search Console je tak znají), ale Cloudflare pak sám neví,
+že `/` je `index.html`.
 
 Požadavky na statické soubory se **neúčtují ani nepočítají do limitu Workeru**;
 platí se jen volání `/api/*`.
@@ -18,13 +22,20 @@ i generování `server/catalog.js` jsou na platformě nezávislé a zůstaly bez
 ## Struktura
 
 ```
-src/worker.js        vstupní bod, routing /api/*
+public/              veřejný web — JEN to, co je tady, se publikuje
+  produkt/           generované stránky produktů (npm run build)
+  img/               fotky pro web (.webp, 900 px) + img/pay/ loga karet
+src/worker.js        vstupní bod, routing /api/* a /
 server/order.js      validace košíku, stavy objednávky  (testuje tools/test-order.js)
 server/catalog.js    generovaný katalog pro ověřování cen
 db/schema.sql        schéma D1
+tools/               build, testy, šablony EmailJS
+foto-zdroje/         původní fotky produktů (PNG/JPEG) — na web nejdou
 wrangler.jsonc       konfigurace Workeru a statických souborů
-.assetsignore        co se nemá nahrávat jako veřejný soubor
 ```
+
+Publikuje se v **povolovacím režimu**: kořenem statických souborů je `public/`.
+Nový soubor kdekoli jinde se na web nedostane, ani omylem.
 
 Workers **nemají souborový systém** — `fs.readFile()` tu neexistuje. Data se
 importují jako moduly a zabalí se do bundlu při deploy.
@@ -68,7 +79,7 @@ veřejný.
 ## Lokální vývoj
 
 ```bash
-npx wrangler dev      # spustí Worker i statické soubory lokálně
+npm run dev           # spustí Worker i statické soubory lokálně (localhost:8787)
 npm run test          # testy validace košíku
 npm run build         # přegeneruje produktové stránky a katalog
 ```

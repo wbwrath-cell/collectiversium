@@ -1,7 +1,7 @@
 {
   // Konfigurace Cloudflare Workers.
   //
-  // Web je statický a leží v kořeni repozitáře. Worker obsluhuje výhradně
+  // Web je statický a leží v adresáři public/. Worker obsluhuje výhradně
   // /api/* — objednávky, platby a stav objednávky. Všechno ostatní jde
   // přímo ze statických souborů a Worker se u toho vůbec nespustí.
   //
@@ -13,12 +13,23 @@
   "compatibility_date": "2026-09-24",
 
   "assets": {
-    "directory": "./",
+    // Povolovací režim: publikuje se JEN obsah public/. Serverový kód,
+    // schéma databáze, build skripty a zdrojové fotky leží mimo, takže
+    // je nejde stáhnout — ani omylem, až přibude nový soubor.
+    "directory": "./public",
+    // Přístup Workeru ke statickým souborům (env.ASSETS).
+    "binding": "ASSETS",
     // Bez tohohle by statické soubory obsloužily i /api/* a Worker by se
     // nespustil. Tenhle řádek je to, co dělá z webu e-shop.
-    "run_worker_first": ["/api/*"],
-    // Neexistující stránka vrátí 404.html (viz níže) místo holé hlášky.
-    "not_found_handling": "404-page"
+    // "/" je tu kvůli html_handling: "none" níže — v tom režimu Cloudflare
+    // sám neví, že kořen je index.html, takže to dořeší Worker.
+    "run_worker_first": ["/api/*", "/"],
+    // Neexistující stránka vrátí 404.html místo holé hlášky.
+    "not_found_handling": "404-page",
+    // Výchozí chování přesměrovává /kontakt.html → /kontakt. Sitemap,
+    // canonical URL i Search Console ale znají adresy s .html, takže by
+    // každá indexovaná stránka mířila na přesměrování. Necháváme je být.
+    "html_handling": "none"
   },
 
   "observability": {

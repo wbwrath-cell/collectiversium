@@ -1,6 +1,7 @@
 // Serverová část e-shopu.
 //
-// Worker se spouští POUZE pro /api/* — viz run_worker_first ve wrangler.jsonc.
+// Worker se spouští POUZE pro /api/* a pro kořen "/" — viz run_worker_first
+// ve wrangler.jsonc.
 // Všechno ostatní (HTML, CSS, obrázky) servíruje Cloudflare přímo ze
 // statických souborů, bez spuštění tohohle kódu a bez účtování.
 //
@@ -34,8 +35,14 @@ const routes = {
 };
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     const url = new URL(request.url);
+
+    // Hlavní stránka. Při html_handling: "none" ji Cloudflare sám nenajde.
+    if (url.pathname === "/") {
+      return env.ASSETS.fetch(new Request(new URL("/index.html", url), request));
+    }
+
     const handler = routes[`${request.method} ${url.pathname}`];
 
     if (!handler) {

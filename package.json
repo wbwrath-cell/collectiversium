@@ -2,14 +2,18 @@
   "name": "collectiversium",
   "version": "1.0.0",
   "private": true,
-  "description": "Collectiversium — sběratelské karty, figurky a plyšáci. Statický web + Cloudflare Pages Functions.",
+  "description": "Collectiversium — sběratelské karty, figurky a plyšáci. Statický web (public/) + Cloudflare Worker (/api/*).",
   "type": "module",
   "scripts": {
     "build": "node tools/build.js",
+    "dev": "wrangler dev",
     "test": "node tools/test-order.js",
     "db:schema": "wrangler d1 execute collectiversium --file=db/schema.sql"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "wrangler": "^4.147.0"
   }
 }
